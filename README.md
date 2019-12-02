@@ -1,6 +1,6 @@
 # flutter_app
 
-A new Flutter application.
+Flutter application acting as a UI for all personal side projects
 
 ## Getting Started
 
