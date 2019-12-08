@@ -1,180 +1,141 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/lunchPredictor/theme/style.dart' as lpStyle;
+import 'package:flutter_app/lunchPredictor/screens/main.dart' as lpMain;
+
 
 void main() {
-  runApp(new SideProjectsApp());
+  runApp(
+    MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => new HomePage(),
+        '/lunchPredictor': (context) => new lpMain.LunchPredictorMain(),
+      },
+    )
+  );
 }
 
-class SideProjectsApp extends StatelessWidget {
-  // Stateless for now
+
+// Homepage
+class HomePage extends StatefulWidget {
+
+  HomePage({Key key}): super(key: key);
+
   @override
-  Widget build(BuildContext context){
-    return new MaterialApp(
-      title: 'App interface for Side Projects',
-      theme: new ThemeData(
-        brightness: Brightness.dark,
-        primaryColorDark: Colors.lightBlue,
-      ),
-      home: new HomePage(title: 'New Home page',),
-    );
-  }
+  _HomePageState createState() => new _HomePageState();
 }
 
-class HomePage extends StatelessWidget {
 
-  HomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+// State of homepage
+class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    // todo: Note that setState() when called will rebuild
     return Container(
-      child: Stack(
+        child: new Scaffold(
+          appBar: commonAppbar(context),
+          body: overallContainer(),
+        )
+    );
+  }
+
+
+  // build appbar
+  AppBar commonAppbar(BuildContext context) {
+    return new AppBar(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          new Scaffold(
-//            appBar: new AppBar(
-//              title: new Text(this.title),
-//            ),
-            body: Container(
-              color: Colors.deepPurple,
-            ),
-            bottomNavigationBar: BottomAppBar(
-              shape: const CircularNotchedRectangle(),
-              child: Container(height: 100,),
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () => print('Pressed!'),
-              tooltip: 'Increment Counter',
-              child: Icon(Icons.add),
-            ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-          ),
+          _commonAppBarIcon(Icons.home, context),
+          Text('Clemence\'s App'),
+          _commonAppBarIcon(Icons.person_pin, context), // Should be logged in
         ],
       ),
     );
   }
 
-
-  Row _buildButtonBottomRow(){
-    return Row(
-      children: [
-        Placeholder(
-
-        ),
-        Placeholder(
-          color: Colors.lightGreen,
-        ),
-        Placeholder(
-
-        ),
-      ],
+  IconButton _commonAppBarIcon(IconData iconData, BuildContext context){
+    if (iconData == Icons.person_pin){
+      return IconButton(
+        icon: Icon(iconData),
+        onPressed: (){
+          // Do nothing here for now
+          print('Trying to log in?');
+        },
+      );
+    }
+    if (iconData == Icons.home){
+      return IconButton(
+        icon: Icon(iconData),
+        onPressed: (){
+          print('Trying to go home!');
+          Navigator.of(context).pushNamed('/');
+        },
+      );
+    }
+    // This shouldn't happen
+    return IconButton(
+      icon: Icon(Icons.device_unknown),
+      onPressed: (){
+        print("This was never supposed to happen, developer!");
+      },
     );
   }
 
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Flutter Demo',
-      theme: new ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or press Run > Flutter Hot Reload in IntelliJ). Notice that the
-        // counter didn't reset back to zero; the application is not restarted.
-        primarySwatch: Colors.blue,
+  // body to contain all links to side projects
+  Container overallContainer() {
+    return Container(
+      color: Colors.white,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        // first side project
+        children: <Widget>[
+          _sideProject(
+              'Lunch Place Predictor',
+              "Submit current location or guess where you\'ll be having lunch today!",
+              "/lunchPredictor",
+              Icons.not_listed_location,
+          )
+        ],
       ),
-      home: new MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  GestureDetector _sideProject(String name, String description,
+      String route, IconData iconData){
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+    return GestureDetector(
+      onTap: (){
+        print("Navigating to $route");
+//        Navigator.of(context).pushNamed(route);
+      },
+      onLongPress: (){
+        print("Long press detected!");
+        showDialog(
+          context: context,
+          builder: (BuildContext context){
+            return new AlertDialog(
+              title: new Text("More info"),
+              content: new Text("$description"),
+            );
+          }
+        );
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => new _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return new Scaffold(
-      appBar: new AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: new Text(widget.title),
-      ),
-      body: new Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: new Column(
-          // Column is also layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug paint" (press "p" in the console where you ran
-          // "flutter run", or select "Toggle Debug Paint" from the Flutter tool
-          // window in IntelliJ) to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
+      },
+      child: new Container(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            new Text(
-              'You have pushed the button this many times:',
-            ),
-            new Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
+            Icon(iconData),
+            Text(name),
           ],
-        ),
+        )
       ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: new Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
+
+
