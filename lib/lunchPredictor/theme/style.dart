@@ -2,9 +2,17 @@ import 'package:flutter/material.dart';
 
 ThemeData lunchPredictorTheme() {
   return ThemeData(
-    brightness: Brightness.dark,
-    primaryColor: Colors.indigoAccent,
-    accentColor: Colors.lightBlue,
+    brightness: Brightness.light,
+    primaryColor: const Color(0xff59AEFF),
+    accentColor: const Color(0xff6966FF),
+    splashColor: const Color(0xff5176E8),
+
+    appBarTheme: AppBarTheme(
+      brightness: Brightness.light,
+      color: Colors.black87
+    ),
+
+
 
     fontFamily: 'Montserrat',
 
@@ -28,5 +36,9 @@ TextTheme _lunchPredictorTextTheme(){
     body1: TextStyle(
       fontSize: 14.0,
     ),
+
+    button: TextStyle(
+      fontWeight: FontWeight.bold,
+    )
   );
 }
