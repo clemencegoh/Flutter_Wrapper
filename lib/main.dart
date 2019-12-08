@@ -1,7 +1,76 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(new MyApp());
+  runApp(new SideProjectsApp());
+}
+
+class SideProjectsApp extends StatelessWidget {
+  // Stateless for now
+  @override
+  Widget build(BuildContext context){
+    return new MaterialApp(
+      title: 'App interface for Side Projects',
+      theme: new ThemeData(
+        brightness: Brightness.dark,
+        primaryColorDark: Colors.lightBlue,
+      ),
+      home: new HomePage(title: 'New Home page',),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+
+  HomePage({Key key, this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      child: Stack(
+        children: <Widget>[
+          new Scaffold(
+//            appBar: new AppBar(
+//              title: new Text(this.title),
+//            ),
+            body: Container(
+              color: Colors.deepPurple,
+            ),
+            bottomNavigationBar: BottomAppBar(
+              shape: const CircularNotchedRectangle(),
+              child: Container(height: 100,),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () => print('Pressed!'),
+              tooltip: 'Increment Counter',
+              child: Icon(Icons.add),
+            ),
+            floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          ),
+        ],
+      ),
+    );
+  }
+
+
+  Row _buildButtonBottomRow(){
+    return Row(
+      children: [
+        Placeholder(
+
+        ),
+        Placeholder(
+          color: Colors.lightGreen,
+        ),
+        Placeholder(
+
+        ),
+      ],
+    );
+  }
+
 }
 
 class MyApp extends StatelessWidget {
