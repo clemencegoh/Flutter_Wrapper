@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 ThemeData lunchPredictorTheme() {
   return ThemeData(
     brightness: Brightness.light,
-    primaryColor: const Color(0xff59AEFF),
+    primaryColor: const Color(0xff2E4A70),
     accentColor: const Color(0xff6966FF),
     splashColor: const Color(0xff5176E8),
 
