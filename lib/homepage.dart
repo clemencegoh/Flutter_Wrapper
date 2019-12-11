@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/appbar.dart' as appbar;
 
+import 'package:flutter_app/BLoC/login.dart' as loginBLoC;
+
 
 // Homepage
 class HomePage extends StatefulWidget {
@@ -22,7 +24,6 @@ class _HomePageState extends State<HomePage> {
     // Note that setState() when called will rebuild
     return MaterialApp(
       title: "Clemence's App",
-      theme: ThemeData.light(),
       home: new Scaffold(
         appBar: _wrapperAppBar(context),
         body: _wrapperBody(),
@@ -46,7 +47,7 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           appbar.functionalIcon(Icons.star, _openDrawer),
           Text("Projects"),
-          appbar.functionalIcon(Icons.person_pin, _login),
+          appbar.functionalIcon(Icons.person_pin, loginBLoC.login),
         ],
       ),
     );
@@ -57,97 +58,137 @@ class _HomePageState extends State<HomePage> {
     print("Hello, opening drawer!");
   }
 
-  void _login(){
-    // todo: implement
-    print("trying to log in?");
-  }
-
   Widget _wrapperBody(){
     return Stack(
       children: <Widget>[
         _backgroundGradient(),
-        _motivationalCardArea(),
-//        _projectsContentArea(),
+        _bodyCardsArea(),
       ],
     );
   }
 
-  Widget _projectsContentArea(){
-    return ListView(
-      children: <Widget>[
-        Card(
-          child: ListTile(
-            leading: Icon(Icons.not_listed_location),
-            title: Text("Location Prediction"),
-            subtitle: Text("Submit current location or guess where you'll be having lunch today!"),
-            trailing: Icon(Icons.navigate_next),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _motivationalCardArea(){
+  // Contains Motivation Card and project cards
+  Widget _bodyCardsArea(){
     return Container(
       padding: EdgeInsets.only(
-        top: 28,
+        top: 24,
         left: 10,
         right: 10,
       ),
       child: Column(
         children: <Widget>[
-          Card(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Center(
-                  child: Card(
-                    child: Stack(
-                      children: <Widget>[
-                        Image(
-                          image: AssetImage(
-                              "assets/images/darker-rain.jpg",
-                              package: "flutter_app"
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(
-                            top: 40.0,
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Welcome Back\nClemence",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 26.0,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.format_quote,
-                    size: 30,
-                  ),
-                  title: Text("If you cannot do great things, do small things in a great way."),
-                  subtitle: Text("Napolean Hill"),
-                ),
-              ],
-            ),
-          ),
-// todo: figure this out
-//          _projectsContentArea(),
+          _buildMotivationalCard(),
+          _projectsContentArea(),
         ],
       ),
     );
   }
 
+
+  Widget _buildMotivationalCard(){
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          _motivationalImageBuilder(),
+          _quoteOfTheDayBuilder(),
+        ],
+      ),
+    );
+  }
+
+  Widget _motivationalImageBuilder(){
+    // todo: Implement dynamic build logic here
+
+    return Center(
+      child: Container(
+        padding: EdgeInsets.only(
+          top: 12.0,
+          left: 12.0,
+          right: 12.0,
+        ),
+        child: Stack(
+          children: <Widget>[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(15.0),
+              child: Image.asset("assets/images/darker-rain.jpg"),
+            ),
+
+            Container(
+              padding: EdgeInsets.only(
+                top: 40.0,
+              ),
+              child: Center(
+                child: Text(
+                  "Welcome Back\nClemence",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26.0,
+                  ),
+                ),
+              ),
+            ),
+          ]
+        ),
+      ),
+    );
+  }
+
+  Widget _quoteOfTheDayBuilder(){
+    // todo: Implement logic to get quote dynamically
+
+    return ListTile(
+      leading: Icon(
+        Icons.format_quote,
+        size: 30,
+      ),
+      title: Text("If you cannot do great things, do small things in a great way."),
+      subtitle: Text("Napolean Hill"),
+    );
+  }
+
+  Widget _projectsContentArea(){
+    return Container(
+      child: new Expanded(
+        child: new ListView(
+          shrinkWrap: true,
+          children: _getAllProjects(),
+        )
+      )
+    );
+  }
+
+
+  List<Widget> _getAllProjects(){
+    // todo: Implement logic to get all projects
+
+    return <Widget>[
+      Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 10.0),
+
+          child: ListTile(
+            leading: Icon(
+              Icons.not_listed_location,
+              size: 38,
+            ),
+            title: Text("Location Prediction"),
+            subtitle: Text("Submit current location or guess where you'll be having lunch today!"),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){ print("Navigating!!"); },
+          ),
+        ),
+      ),
+    ];
+  }
 
   Widget _backgroundGradient(){
     Color appbar_color = const Color(0xff2E4A70);
@@ -159,130 +200,6 @@ class _HomePageState extends State<HomePage> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [appbar_color, body_color],
-        ),
-      ),
-    );
-  }
-
-
-  // todo: Populate this with other side projects
-  Widget overallContainer() {
-    return Container(
-      child: new SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            _sideProject(
-              'Lunch Place Predictor',
-              "Submit current location or guess where you'll be having lunch today!",
-              "/lunchPredictor",
-              Icons.not_listed_location,
-            ),
-            _sideProject(
-              'Lunch Place Predictor',
-              "Submit current location or guess where you'll be having lunch today!",
-              "/lunchPredictor",
-              Icons.not_listed_location,
-            ),
-            _sideProject(
-              'Lunch Place Predictor',
-              "Submit current location or guess where you'll be having lunch today!",
-              "/lunchPredictor",
-              Icons.not_listed_location,
-            ),
-            _sideProject(
-              'Lunch Place Predictor',
-              "Submit current location or guess where you'll be having lunch today!",
-              "/lunchPredictor",
-              Icons.not_listed_location,
-            ),
-            _sideProject(
-              'Lunch Place Predictor',
-              "Submit current location or guess where you'll be having lunch today!",
-              "/lunchPredictor",
-              Icons.not_listed_location,
-            ),_sideProject(
-              'Lunch Place Predictor',
-              "Submit current location or guess where you'll be having lunch today!",
-              "/lunchPredictor",
-              Icons.not_listed_location,
-            ),
-            _sideProject(
-              'Lunch Place Predictor',
-              "Submit current location or guess where you'll be having lunch today!",
-              "/lunchPredictor",
-              Icons.not_listed_location,
-            ),
-            _sideProject(
-              'Lunch Place Predictor',
-              "Submit current location or guess where you'll be having lunch today!",
-              "/lunchPredictor",
-              Icons.not_listed_location,
-            ),
-            _sideProject(
-              'Lunch Place Predictor',
-              "Submit current location or guess where you'll be having lunch today!",
-              "/lunchPredictor",
-              Icons.not_listed_location,
-            ),
-
-          ],
-        ),
-      ),
-    );
-  }
-
-
-  /*
-
-   Creates individual cards as a route for each side project
-
-   */
-  Card _sideProject(String name, String description, String route, IconData iconData){
-    var currentSize = MediaQuery.of(context).size;
-
-    return Card(
-      child: InkWell(
-        splashColor: Theme.of(context).splashColor,
-
-        onTap: (){
-          print("Navigating to $route");
-        Navigator.of(context).pushReplacementNamed(route);
-        },
-
-        child: Container(
-          padding: const EdgeInsets.all(18.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              // Icon + Name
-              Container(
-                constraints: BoxConstraints(
-                  maxWidth: currentSize.width/5,
-                ),
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Icon(iconData),
-                      Center(
-                        child: Text(
-                          name,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold
-                          ),
-                        ),
-                      ),
-                    ]
-                  ),
-              ),
-
-              // Description of project
-              Flexible(
-                child: new Text(description),
-              ),
-            ],
-          ),
         ),
       ),
     );
