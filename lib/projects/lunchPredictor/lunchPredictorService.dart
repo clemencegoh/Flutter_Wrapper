@@ -2,17 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/seriesModels.dart';
 import 'package:flutter_app/helpers/visitorChart.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter_app/projects/lunchPredictor/newDatapointForm.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class LunchPredictorService{
 
   // Mock return from http call to microservice
-  Future<String> predictedLocationResult =
+  Future<String> predictedLocationResult(){
     // wait function
-    new Future<String>.delayed(
-        Duration(seconds: 3),
-        () => throw("Some weird error"),
+    return new Future<String>.delayed(
+      Duration(seconds: 3),
+          () => "<Some Weird Response>",
     );
+  }
+
+
+  FutureBuilder<String> askForResult(BuildContext context){
+    return FutureBuilder<String>(
+      future: predictedLocationResult(),
+      builder: (context, snapshot){ return; },
+    );
+  }
 
 
   void getLunchLocationData(BuildContext context) async {
@@ -36,12 +46,8 @@ class LunchPredictorService{
     );
 
     try{
-      // todo: figure out how to do this on button press instead of on load of page
-
-      String res = await predictedLocationResult;
-
+      String res = await askForResult(context).future;
       Navigator.pop(context);
-
       Alert(
         context: context,
         type: AlertType.info,
@@ -57,9 +63,7 @@ class LunchPredictorService{
         closeFunction: () => {},  // intended to be empty
       ).show();
     } catch (err){
-
       Navigator.pop(context);
-
       Alert(
         context: context,
         type: AlertType.error,
@@ -75,7 +79,6 @@ class LunchPredictorService{
         closeFunction: () => {},  // intended to be empty
       ).show();
     }
-
   }
 
   Widget guessMyLunchPlaceToday(BuildContext context){
@@ -89,14 +92,23 @@ class LunchPredictorService{
       ),
       minWidth: MediaQuery.of(context).size.width,
       child: new RaisedButton(
-        onPressed: (){
-          // todo: predict
+        onPressed: () {
           getLunchLocationData(context);
         },
         child: Text(
           "Today I'm having lunch at..."
         ),
       ),
+    );
+  }
+
+  void showSubmitNewDatapointDialog(BuildContext context, GlobalKey<FormState> formKey){
+    showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return SubmitNewDatapoint()
+              .datapointFormContainer(context, formKey);
+        },
     );
   }
 
@@ -141,7 +153,6 @@ class LunchPredictorService{
         barColor: normalColor,
       ),
     ];
-
 
     return Center(
       child: VisitorChart(

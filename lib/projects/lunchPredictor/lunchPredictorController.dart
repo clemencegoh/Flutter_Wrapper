@@ -37,7 +37,7 @@ class _LunchPredictorState extends State<LunchPredictorMain> {
   FloatingActionButton addNewDatapoint(BuildContext context){
     return FloatingActionButton.extended(
       onPressed: (){
-
+        service.showSubmitNewDatapointDialog(context, _formKey);
       },
       icon: Icon(Icons.add_location),
       label: Text("Add Datapoint",),
@@ -65,63 +65,6 @@ class _LunchPredictorState extends State<LunchPredictorMain> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  // Form field
-  Container _submitLocationForm(BuildContext context, TextEditingController controller){
-
-    return Container(
-      margin: EdgeInsets.only(
-        top: 20.0,
-      ),
-      child: Column(
-        children: <Widget>[
-          Form(
-            key: _formKey,
-            child: TextFormField(
-              controller: controller,
-              validator: (value) {
-                if (value.isEmpty) {
-                  return "Please enter a location";
-                }
-                return null;
-              },
-              decoration: InputDecoration(
-                labelText: "Enter a location",
-                border: OutlineInputBorder(
-                  borderRadius: new BorderRadius.circular(25.0),
-                  borderSide: new BorderSide(color: Colors.green),
-                )
-              ),
-            ),
-          ),
-          ButtonTheme(
-            minWidth: MediaQuery.of(context).size.width,
-//            buttonColor: ts.primaryColor,
-
-            child: RaisedButton(
-              onPressed: (){
-                if (_formKey.currentState.validate()){
-                  // Execute post here
-
-                  var currentText = controller.text;
-
-                  // todo: Complete this
-                  print("Execute post here with $currentText");
-
-                  // Clear string field
-                  controller.clear();
-                }
-              },
-              child: Text(
-                  "Submit",
-//                style: ts.textTheme.button,
-              ),
-            ),
-          )
-        ],
       ),
     );
   }
