@@ -1,9 +1,17 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/homepage/projectsRepository.dart';
 import 'package:flutter_app/homepage/projectsModel.dart';
 
 
 class HomePageService {
+
+  HomePageService(BuildContext context){
+    this.context = context;
+  }
+
+  BuildContext context;
 
   // Contains Motivation Card and project cards
   Widget bodyCardsArea(){
@@ -16,7 +24,7 @@ class HomePageService {
       child: Column(
         children: <Widget>[
           _buildMotivationalCard(),
-          _projectsContentArea(),
+          _projectsContentArea(context),
         ],
       ),
     );
@@ -90,19 +98,19 @@ class HomePageService {
     );
   }
 
-  Widget _projectsContentArea(){
+  Widget _projectsContentArea(BuildContext context){
     return Container(
         child: new Expanded(
             child: new ListView(
               shrinkWrap: true,
-              children: _getAllProjects(),
+              children: _getAllProjects(context),
             )
         )
     );
   }
 
 
-  List<Widget> _getAllProjects(){
+  List<Widget> _getAllProjects(BuildContext context){
     ProjectsData data = ProjectsData();
 
     var projectWidgets = <Widget>[];
@@ -125,8 +133,7 @@ class HomePageService {
               subtitle: Text(proj.description),
               trailing: Icon(proj.icon),
               onTap: (){
-                  // todo: add navigation here
-                  print("Navigating to $route!!");
+                  Navigator.pushReplacementNamed(context, "/projects.lunchPredictor");
                 },
             ),
           ),

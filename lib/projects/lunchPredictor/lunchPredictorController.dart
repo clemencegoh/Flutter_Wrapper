@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/appbar.dart' as appbar;
-import 'package:flutter_app/lunchPredictor/theme/style.dart' as thisStyle;
-
+import 'package:flutter_app/projects/lunchPredictor/lunchPredictorService.dart';
 
 
 // Main UI for interacting with backend
@@ -17,13 +16,15 @@ class _LunchPredictorState extends State<LunchPredictorMain> {
   // Contains a form for submission
   final _formKey = GlobalKey<FormState>();
   final textController = TextEditingController();
+  LunchPredictorService service = new LunchPredictorService();
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
       appBar: appbar.commonAppbar(context, "Lunchplace Predictor"),
-      body: _appBody(context),
+//      body: _appBody(context),
+      body: service.graph(),
     );
   }
 
@@ -72,7 +73,7 @@ class _LunchPredictorState extends State<LunchPredictorMain> {
   // Form field
   Container _submitLocationForm(BuildContext context, TextEditingController controller){
 
-    var ts = thisStyle.lunchPredictorTheme();
+//    var ts = thisStyle.lunchPredictorTheme();
 
     return Container(
       margin: EdgeInsets.only(
@@ -94,7 +95,7 @@ class _LunchPredictorState extends State<LunchPredictorMain> {
           ),
           ButtonTheme(
             minWidth: MediaQuery.of(context).size.width,
-            buttonColor: ts.primaryColor,
+//            buttonColor: ts.primaryColor,
 
             child: RaisedButton(
               onPressed: (){
@@ -112,7 +113,7 @@ class _LunchPredictorState extends State<LunchPredictorMain> {
               },
               child: Text(
                   "Submit",
-                style: ts.textTheme.button,
+//                style: ts.textTheme.button,
               ),
             ),
           )

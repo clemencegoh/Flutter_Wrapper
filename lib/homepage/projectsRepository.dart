@@ -18,7 +18,7 @@ class ProjectsData {
         "Submit current location "
             "or guess where you'll be having lunch today!",
         Icons.navigate_next,
-        "/lunchPredictor"
+        "/projects.lunchPredictor"
       ),
 
     ];

@@ -11,10 +11,8 @@ class HomePage extends StatefulWidget {
 
   HomePage({Key key}): super(key: key);
 
-  final hpService.HomePageService _service = new hpService.HomePageService();
-
   @override
-  _HomePageState createState() => new _HomePageState.service(_service);
+  _HomePageState createState() => new _HomePageState();
 
 }
 
@@ -24,12 +22,11 @@ class _HomePageState extends State<HomePage> {
 
   hpService.HomePageService service;
 
-  _HomePageState.service(hpService.HomePageService service){
-    this.service = service;
-  }
-
   @override
   Widget build(BuildContext context) {
+
+    this.service = new hpService.HomePageService(context);
+
     // Note that setState() when called will rebuild
     return MaterialApp(
       title: "Clemence's App",
@@ -91,18 +88,6 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.zero,
         onReorder: _onReorder,
         children: data
-//        <Widget>[
-//          DrawerHeader(
-//            child: Text(
-//              "Favourite Projects",
-//              textAlign: TextAlign.center,
-//            ),
-//            decoration: BoxDecoration(
-//              color: Colors.white,
-//            ),
-//          ),
-//          )
-//        ],
       ),
     );
   }
