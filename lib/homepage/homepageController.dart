@@ -36,8 +36,6 @@ class _HomePageState extends State<HomePage> {
         // todo: pass in state containing favourites
         drawer: homepageDrawer(context),
       ),
-
-//      debugShowCheckedModeBanner: false,
     );
   }
 

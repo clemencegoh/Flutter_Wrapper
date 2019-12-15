@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app/homepage/projectsRepository.dart';
 import 'package:flutter_app/homepage/projectsModel.dart';
