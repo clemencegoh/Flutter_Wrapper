@@ -11,7 +11,7 @@ void main() {
       initialRoute: '/',
       routes: {
         '/': (context) => new homepage_main.HomePage(),
-        '/projects.lunchPredictor': (context) => new lp_main.LunchPredictorMain(),
+        '/lunchPredictor': (context) => new lp_main.LunchPredictorMain(),
       },
     )
   );

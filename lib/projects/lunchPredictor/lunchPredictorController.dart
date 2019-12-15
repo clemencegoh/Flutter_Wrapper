@@ -20,11 +20,10 @@ class _LunchPredictorState extends State<LunchPredictorMain> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new Scaffold(
       appBar: appbar.commonAppbar(context, "Lunchplace Predictor"),
-//      body: _appBody(context),
-      body: service.graph(),
+      body: _appBody(context),
+      floatingActionButton: addNewDatapoint(context),
     );
   }
 
@@ -35,49 +34,47 @@ class _LunchPredictorState extends State<LunchPredictorMain> {
     super.dispose();
   }
 
-  Container _appBody(BuildContext context){
+  FloatingActionButton addNewDatapoint(BuildContext context){
+    return FloatingActionButton.extended(
+      onPressed: (){
+
+      },
+      icon: Icon(Icons.add_location),
+      label: Text("Add Datapoint",),
+      backgroundColor: const Color(0xff71BDB8),
+    );
+  }
+
+  Widget _appBody(BuildContext context){
     return Container(
       margin: const EdgeInsets.only(
         left: 16.0,
         right: 16.0,
-        top: 20.0,
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          _introContainer(),
-          _submitLocationForm(context, textController),
-        ],
-      ),
-    );
-  }
-
-  // Brief into to app
-  Container _introContainer(){
-    return Container(
-      child:
-        Flexible(
-          child: Text(
-            "Welcome!\n"
-                "This app tries to predict your next "
-                "lunch location using Machine Learning!",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontWeight: FontWeight.bold
-            ),
+      child: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height - 20
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              service.introContainer(),
+              service.visitsGraph(),
+              service.guessMyLunchPlaceToday(context),
+            ],
           ),
         ),
+      ),
     );
   }
 
   // Form field
   Container _submitLocationForm(BuildContext context, TextEditingController controller){
 
-//    var ts = thisStyle.lunchPredictorTheme();
-
     return Container(
       margin: EdgeInsets.only(
-        top: 40.0,
+        top: 20.0,
       ),
       child: Column(
         children: <Widget>[
@@ -91,6 +88,13 @@ class _LunchPredictorState extends State<LunchPredictorMain> {
                 }
                 return null;
               },
+              decoration: InputDecoration(
+                labelText: "Enter a location",
+                border: OutlineInputBorder(
+                  borderRadius: new BorderRadius.circular(25.0),
+                  borderSide: new BorderSide(color: Colors.green),
+                )
+              ),
             ),
           ),
           ButtonTheme(

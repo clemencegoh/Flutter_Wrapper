@@ -25,7 +25,7 @@ class VisitorChart extends StatelessWidget {
 
     return Container(
       height: 400,
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.symmetric(vertical: 20),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),

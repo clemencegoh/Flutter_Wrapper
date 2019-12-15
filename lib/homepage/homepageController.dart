@@ -103,7 +103,6 @@ class _HomePageState extends State<HomePage> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-//          appbar.functionalIcon(Icons.view_list, service.openDrawer),
           Text("Projects"),
           appbar.functionalIcon(Icons.person_pin, loginBLoC.login),
         ],

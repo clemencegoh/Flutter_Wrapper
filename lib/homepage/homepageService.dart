@@ -115,9 +115,8 @@ class HomePageService {
 
     var projectWidgets = <Widget>[];
     for (Project proj in data.getAllData()){
-      var route = proj.route;
       projectWidgets.add(
-        Card(
+        new Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
@@ -133,7 +132,7 @@ class HomePageService {
               subtitle: Text(proj.description),
               trailing: Icon(proj.icon),
               onTap: (){
-                  Navigator.pushReplacementNamed(context, "/projects.lunchPredictor");
+                  Navigator.pushReplacementNamed(context, proj.route);
                 },
             ),
           ),
