@@ -17,10 +17,15 @@ class ProjectsData {
         "Location Prediction",
         "Submit current location "
             "or guess where you'll be having lunch today!",
-        Icons.navigate_next,
+        Icons.not_listed_location,
         "/lunchPredictor"
       ),
-
+      Project(
+          "Simple Webview",
+          "Attempt at trying to show the capabilities of webview on flutter",
+          Icons.open_in_browser,
+          "/webview"
+      ),
     ];
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/BLoC/quoteGetter.dart';
 import 'package:flutter_app/homepage/projectsRepository.dart';
 import 'package:flutter_app/homepage/projectsModel.dart';
 
@@ -85,14 +86,26 @@ class HomePageService {
 
   Widget _quoteOfTheDayBuilder(){
     // todo: Implement logic to get quote dynamically
+    // todo: find out why this doesn't work
+    String quoteOfTheDay = "If you cannot do great things, do small things in a great way.";
+    String authorOfQuote = "Napolean Hill";
+    try{
+      getQuotes().then((e){
+        quoteOfTheDay = e["Quote"] ? e["Quote"] : quoteOfTheDay;
+        authorOfQuote = e["Author"] ? e["Author"] : authorOfQuote;
+      });
+    }catch (err){
+      print(err);
+    }
+
 
     return ListTile(
       leading: Icon(
         Icons.format_quote,
         size: 30,
       ),
-      title: Text("If you cannot do great things, do small things in a great way."),
-      subtitle: Text("Napolean Hill"),
+      title: Text("$quoteOfTheDay"),
+      subtitle: Text("$authorOfQuote"),
     );
   }
 
@@ -123,14 +136,14 @@ class HomePageService {
 
             child: ListTile(
               leading: Icon(
-                Icons.not_listed_location,
+                proj.icon,
                 size: 38,
               ),
               title: Text(proj.title),
               subtitle: Text(proj.description),
-              trailing: Icon(proj.icon),
+              trailing: Icon(Icons.navigate_next),
               onTap: (){
-                  Navigator.pushReplacementNamed(context, proj.route);
+                  Navigator.pushNamed(context, proj.route);
                 },
             ),
           ),

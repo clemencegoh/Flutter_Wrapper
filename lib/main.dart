@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/homepage/homepageController.dart' as homepage_main;
-import 'package:flutter_app/projects/lunchPredictor/lunchPredictorController.dart' as lp_main;
+import 'package:flutter_app/homepage/homepageController.dart';
+import 'package:flutter_app/projects/lunchPredictor/lunchPredictorController.dart';
+import 'package:flutter_app/projects/simpleWebview/simpleWebview.dart';
+import 'package:flutter_app/projects/simpleWebview/webView.dart';
 
 
 void main() {
@@ -8,8 +10,9 @@ void main() {
     MaterialApp(
       initialRoute: '/',
       routes: {
-        '/': (context) => new homepage_main.HomePage(),
-        '/lunchPredictor': (context) => new lp_main.LunchPredictorMain(),
+        '/': (context) => new HomePage(),
+        '/lunchPredictor': (context) => new LunchPredictorMain(),
+        '/webview': (context) => new WebViewLoadingState(),
       },
       debugShowCheckedModeBanner: false,
     )

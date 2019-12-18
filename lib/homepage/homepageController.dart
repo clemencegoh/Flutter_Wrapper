@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/homepage/homepageService.dart' as hpService;
-import 'package:flutter_app/homepage/projectsModel.dart';
-
 import 'package:flutter_app/helpers/appbar.dart' as appbar;
 
 import 'package:flutter_app/BLoC/login.dart' as loginBLoC;
