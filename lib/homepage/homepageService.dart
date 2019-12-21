@@ -155,15 +155,15 @@ class HomePageService {
   }
 
   Widget backgroundGradient(){
-    Color appbar_color = const Color(0xff2E4A70);
-    Color body_color = const Color(0xffB5D4FF);
+    Color appbarColor = const Color(0xff2E4A70);
+    Color bodyColor = const Color(0xffB5D4FF);
 
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [appbar_color, body_color],
+          colors: [appbarColor, bodyColor],
         ),
       ),
     );

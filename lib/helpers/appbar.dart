@@ -5,11 +5,11 @@ import 'package:flutter_app/BLoC/login.dart' as loginBLoC;
 // build appbar
 AppBar commonAppbar(BuildContext context, String title) {
 
-  Color background_color = const Color(0xff2E4A70);
+  Color backgroundColor = const Color(0xff2E4A70);
 
   return new AppBar(
     elevation: 0.0,
-    backgroundColor: background_color,
+    backgroundColor: backgroundColor,
 
     title: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -101,11 +101,11 @@ class _HomePageState extends State<HomePage> {
 
   Widget wrapperAppBar(BuildContext context) {
 
-    Color background_color = const Color(0xff2E4A70);
+    Color backgroundColor = const Color(0xff2E4A70);
 
     return new AppBar(
       elevation: 0.0,
-      backgroundColor: background_color,
+      backgroundColor: backgroundColor,
 
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
