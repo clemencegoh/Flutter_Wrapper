@@ -4,6 +4,7 @@ import 'package:flutter_app/helpers/appbar.dart' as appbar;
 
 import 'package:flutter_app/BLoC/login.dart' as loginBLoC;
 
+import 'material/customReorderableListView.dart';
 // Homepage
 class HomePage extends StatefulWidget {
 
@@ -72,15 +73,25 @@ class _HomePageState extends State<HomePage> {
 
   // todo: not working
   void _onReorder(int oldIndex, int newIndex){
+    print('moving from $oldIndex to $newIndex');
     setState(() {
-      Widget oldData = data.removeAt(oldIndex);
-      data.insert(newIndex, oldData);
+      // Index has to change because the size of the list changes
+      if (oldIndex < newIndex) newIndex--;
+
+      // have to wait for flutter to cleanup the old widget first
+      // otherwise there might be a GlobalKey conflict
+      Future.delayed(Duration(milliseconds: 10), (){
+        setState(() {
+          final Widget item = data.removeAt(oldIndex);
+          data.insert(newIndex, item);
+        });
+      });
     });
   }
 
   Drawer homepageDrawer(BuildContext context){
     return Drawer(
-      child: ReorderableListView(
+      child: CustomReorderableListView(
         padding: EdgeInsets.zero,
         onReorder: _onReorder,
         children: data
