@@ -73,7 +73,6 @@ class _HomePageState extends State<HomePage> {
 
   // todo: not working
   void _onReorder(int oldIndex, int newIndex){
-    print('moving from $oldIndex to $newIndex');
     setState(() {
       // Index has to change because the size of the list changes
       if (oldIndex < newIndex) newIndex--;
