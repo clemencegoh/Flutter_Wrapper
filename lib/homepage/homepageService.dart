@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/BLoC/quoteGetter.dart';
+import 'package:flutter_app/BLoC/dioQuoteGettier.dart';
 import 'package:flutter_app/homepage/projectsRepository.dart';
 import 'package:flutter_app/homepage/projectsModel.dart';
 
@@ -89,23 +89,29 @@ class HomePageService {
     // todo: find out why this doesn't work
     String quoteOfTheDay = "If you cannot do great things, do small things in a great way.";
     String authorOfQuote = "Napolean Hill";
-    try{
-      getQuotes().then((e){
-        quoteOfTheDay = e["Quote"] ? e["Quote"] : quoteOfTheDay;
-        authorOfQuote = e["Author"] ? e["Author"] : authorOfQuote;
-      });
-    }catch (err){
-      print(err);
-    }
 
+    return FutureBuilder(
+      future: getRandomQuote(),
+      builder: (BuildContext context, snapshot){
+        if (snapshot.hasData){
+          print(snapshot.data);
+          quoteOfTheDay = snapshot.data["Quote"];
+          authorOfQuote = snapshot.data["Author"];
+        }else{
+          if (snapshot.hasError){
+            print(snapshot.error);
+          }
+        }
 
-    return ListTile(
-      leading: Icon(
-        Icons.format_quote,
-        size: 30,
-      ),
-      title: Text("$quoteOfTheDay"),
-      subtitle: Text("$authorOfQuote"),
+        return ListTile(
+          leading: Icon(
+            Icons.format_quote,
+            size: 30,
+          ),
+          title: Text("$quoteOfTheDay"),
+          subtitle: Text("$authorOfQuote"),
+        );
+      },
     );
   }
 

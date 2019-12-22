@@ -2,26 +2,26 @@ import 'dart:math';
 
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
-import 'package:http/http.dart';
+import 'package:dio/dio.dart';
 
 
 Future<Map<String, dynamic>> getRandomQuote() async {
   final random = new Random();
-  List<Map<String, dynamic>> quotesList = await getQuotes();
+  List<Map<String, dynamic>> quotesList = await getQuotes(random.nextInt(10));
   return quotesList[random.nextInt(quotesList.length)];
 }
 
-Future getQuotes() async {
+Future getQuotes(int pageNumber) async {
   try{
-    Response res = await get("https://www.goodreads.com/quotes");
-    var document = parse(res.body);
+    Response res = await Dio().get("http://quotes.toscrape.com/page/$pageNumber");
+    var document = parse(res.data);
     List<Element> quotes = document.querySelectorAll('div.quote');
 
     List<Map<String, dynamic>> quoteMap = [];
     for (var quote in quotes){
       quoteMap.add({
-        "Quote": quote.querySelector("div.quoteText").text.trim().split("\n")[0],
-        "Author": quote.querySelector("span.authorOrTitle").text.trim(),
+        "Quote": quote.querySelector("span.text").text.trim().split("\n")[0],
+        "Author": quote.querySelector("small.author").text.trim(),
       });
     }
     return quoteMap;
@@ -30,8 +30,8 @@ Future getQuotes() async {
   }
 }
 
-//main(){
-//  getRandomQuote().then((e){
-//    print(e);
-//  });
-//}
+main(){
+  getRandomQuote().then((e){
+    print(e);
+  });
+}
