@@ -27,47 +27,59 @@ class QuoteClass {
   final random = Random();
 
   Future<QuoteItem> getQuoteOfTheDay() async {
-    // todo: complete this once decided on implementation
-  }
-
-  Future<bool> checkCache() async {
     /*
      Rules:
          - Try to refresh quotesList every day
          - Otherwise, get random quote from stored list on refresh
      */
+
+    bool isAvailable = await _checkCacheForQuote();
+    List<QuoteItem> quotes;
+
+    if (isAvailable){
+      quotes = await this._getQuotesFromDB();
+    }
+    else{
+      // First time or refresh daily
+      quotes = await this._getQuotesFromPage(random.nextInt(10));
+      this._setLastUpdated();
+      this._setDB(quotes);
+    }
+    return quotes[random.nextInt(quotes.length)];
+  }
+
+  void _setDB(List<QuoteItem> quotes) async {
+    // todo: implement
+  }
+
+  void _setLastUpdated() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    const refreshDateTimeID = "homepage_quotes_refreshed_last";
+
+    prefs.setString(refreshDateTimeID, DateTime.now().toString());
+  }
+
+  Future<List<QuoteItem>> _getQuotesFromDB() async {
+    // todo: implement
 
     // set items to cache
     const refreshDateTimeID = "homepage_quotes_refreshed_last";
     const quotesCounterID = "refresh_quotes_counter";
     const currentQuoteID = "current_quote";
     const currentAuthorID = "current_author";
-
-    // check and set default if none
-    if (prefs.get(refreshDateTimeID) == null){
-      prefs.setString(refreshDateTimeID, DateTime.now().toString());
-    }
-    if (prefs.get(quotesCounterID) == null){
-      prefs.setInt(quotesCounterID, 0);
-    }
   }
 
-  Future<bool> checkCacheForQuote() async {
+  Future<bool> _checkCacheForQuote() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     const refreshDateTimeID = "homepage_quotes_refreshed_last";
-    const currentQuoteID = "current_quote";
 
     String lastUpdate = prefs.get(refreshDateTimeID) ?? DateTime.now().toString();
 
-
-    return (prefs.get(currentQuoteID) == null)
-        || (DateTime.parse(lastUpdate)
-                    .difference(DateTime.now()) < Duration(days: 1));
+    return (DateTime.parse(lastUpdate).difference(DateTime.now()) < Duration(days: 1));
   }
 
   // Webscrape, should be called sparingly
-  Future<List<QuoteItem>> getQuotesFromPage(int pageNumber) async {
+  Future<List<QuoteItem>> _getQuotesFromPage(int pageNumber) async {
     String website = "http://quotes.toscrape.com/page/$pageNumber";
 
     try{
