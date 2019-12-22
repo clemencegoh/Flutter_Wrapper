@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/BLoC/dioQuoteGettier.dart';
-import 'package:flutter_app/homepage/projectsRepository.dart';
-import 'package:flutter_app/homepage/projectsModel.dart';
+import 'package:flutter_app/projects/homepage/dioQuoteGetter.dart';
+import 'package:flutter_app/projects/homepage/projectsRepository.dart';
+import 'package:flutter_app/projects/homepage/projectsModel.dart';
 
 
 class HomePageService {

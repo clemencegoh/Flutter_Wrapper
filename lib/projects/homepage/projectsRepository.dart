@@ -1,4 +1,4 @@
-import 'package:flutter_app/homepage/projectsModel.dart';
+import 'package:flutter_app/projects/homepage/projectsModel.dart';
 import 'package:flutter/material.dart';
 
 // Singleton
