@@ -24,58 +24,87 @@ class QuoteClass {
 
   QuoteClass._internal();
 
-  final random = Random();
+  final random = Random(DateTime.now().millisecond);
 
-  Future<QuoteItem> getQuoteOfTheDay() async {
-    /*
+  // Keys for storing and getting from shared prefs
+  final String lastUpdatedDay = "last_updated_day";
+  final String lastUpdatedMonth = "last_updated_month";
+  final String lastUpdatedYear = "last_updated_year";
+  final String currentQuoteOfTheDay = "quote_of_the_day";
+  final String currentAuthor = "author_of_the_day";
+
+
+  /*
      Rules:
          - Try to refresh quotesList every day
          - Otherwise, get random quote from stored list on refresh
-     */
-
-    bool isAvailable = await _checkCacheForQuote();
+   */
+  Future<QuoteItem> getQuoteOfTheDay() async {
+    bool isAvailable = await _checkCacheValidity();
     List<QuoteItem> quotes;
 
     if (isAvailable){
-      quotes = await this._getQuotesFromDB();
+      return await this._getSavedQuote();
+//      quotes = await this._getQuotesFromDB();
     }
     else{
+      print("Trying to get a new quote..");
       // First time or refresh daily
       quotes = await this._getQuotesFromPage(random.nextInt(10));
       this._setLastUpdated();
-      this._setDB(quotes);
+//      this._setDB(quotes);
     }
-    return quotes[random.nextInt(quotes.length)];
+    QuoteItem chosenQuote = quotes[random.nextInt(quotes.length)];
+    String chosen = chosenQuote.quote;
+    print("Setting $chosen as the quote");
+    this._setQuoteOfTheDayIntoSharedPrefs(chosenQuote);
+    return chosenQuote;
   }
 
   void _setDB(List<QuoteItem> quotes) async {
-    // todo: implement
+    // todo: implement as a feature
+  }
+
+  void _setQuoteOfTheDayIntoSharedPrefs(QuoteItem quoteItem) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(this.currentQuoteOfTheDay, quoteItem.quote);
+    prefs.setString(this.currentAuthor, quoteItem.author);
+  }
+
+  Future<QuoteItem> _getSavedQuote() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return QuoteItem(
+      quote: await prefs.get(currentQuoteOfTheDay),
+      author: await prefs.get(currentAuthor)
+    );
   }
 
   void _setLastUpdated() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    const refreshDateTimeID = "homepage_quotes_refreshed_last";
-
-    prefs.setString(refreshDateTimeID, DateTime.now().toString());
+    DateTime today = DateTime.now();
+    prefs.setInt(lastUpdatedDay, today.day);
+    prefs.setInt(lastUpdatedMonth, today.month);
+    prefs.setInt(lastUpdatedYear, today.year);
   }
 
   Future<List<QuoteItem>> _getQuotesFromDB() async {
     // todo: implement
-
-    // set items to cache
-    const refreshDateTimeID = "homepage_quotes_refreshed_last";
-    const quotesCounterID = "refresh_quotes_counter";
-    const currentQuoteID = "current_quote";
-    const currentAuthorID = "current_author";
   }
 
-  Future<bool> _checkCacheForQuote() async {
+  Future<bool> _checkCacheValidity() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    const refreshDateTimeID = "homepage_quotes_refreshed_last";
-
-    String lastUpdate = prefs.get(refreshDateTimeID) ?? DateTime.now().toString();
-
-    return (DateTime.parse(lastUpdate).difference(DateTime.now()) < Duration(days: 1));
+    int updatedOnDay = prefs.getInt(this.lastUpdatedDay);
+    if (updatedOnDay != null){
+      // check validity
+      DateTime today = DateTime.now();
+      if ((updatedOnDay == today.day)
+        && prefs.getInt(this.lastUpdatedMonth) == today.month
+        && prefs.getInt(this.lastUpdatedYear) == today.year
+      ){
+        return true;
+      }
+    }
+    return false;
   }
 
   // Webscrape, should be called sparingly
@@ -98,34 +127,6 @@ class QuoteClass {
     }catch (e) {
       return [QuoteItem(quote: "$e", author: "Error")];
     }
-  }
-}
-
-
-Future<Map<String, dynamic>> getRandomQuote() async {
-  final random = new Random();
-  List<Map<String, dynamic>> quotesList = await getQuotes(random.nextInt(10));
-  return quotesList[random.nextInt(quotesList.length)];
-}
-
-
-// todo: store quotes in local cache and call it only once on opening app
-Future getQuotes(int pageNumber) async {
-  try{
-    Response res = await Dio().get("http://quotes.toscrape.com/page/$pageNumber");
-    var document = parse(res.data);
-    List<Element> quotes = document.querySelectorAll('div.quote');
-
-    List<Map<String, dynamic>> quoteMap = [];
-    for (var quote in quotes){
-      quoteMap.add({
-        "Quote": quote.querySelector("span.text").text.trim().split("\n")[0],
-        "Author": quote.querySelector("small.author").text.trim(),
-      });
-    }
-    return quoteMap;
-  }catch (e) {
-    return [{"Quote": "$e", "Author": "QuotesGetter"}];
   }
 }
 
