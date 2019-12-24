@@ -5,9 +5,6 @@ import 'dart:math';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/rendering.dart';
 
-import 'package:flutter/src/material/debug.dart';
-import 'package:flutter/src/material/material.dart';
-import 'package:flutter/src/material/material_localizations.dart';
 
 /// Custom class to get around the fact that original ReorderableListView shares the same ScrollController as that of the context
 ///

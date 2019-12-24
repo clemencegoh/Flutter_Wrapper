@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/homepage/homepageController.dart';
+import 'package:flutter_app/projects/homepage/homepageController.dart';
 import 'package:flutter_app/projects/lunchPredictor/lunchPredictorController.dart';
-import 'package:flutter_app/projects/simpleWebview/simpleWebview.dart';
 import 'package:flutter_app/projects/simpleWebview/webView.dart';
 
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/BLoC/dioQuoteGettier.dart';
-import 'package:flutter_app/homepage/projectsRepository.dart';
-import 'package:flutter_app/homepage/projectsModel.dart';
+import 'package:flutter_app/projects/homepage/dioQuoteGetter.dart';
+import 'package:flutter_app/projects/homepage/projectsRepository.dart';
+import 'package:flutter_app/projects/homepage/projectsModel.dart';
 
 
 class HomePageService {
@@ -47,7 +47,6 @@ class HomePageService {
 
   Widget _motivationalImageBuilder(){
     // todo: Implement dynamic build logic here
-
     return Center(
       child: Container(
         padding: EdgeInsets.only(
@@ -67,6 +66,7 @@ class HomePageService {
                   top: 60.0,
                 ),
                 child: Center(
+                  // todo: replace this when login implemented
                   child: Text(
                     "Welcome Back\nClemence",
                     textAlign: TextAlign.center,
@@ -85,18 +85,16 @@ class HomePageService {
   }
 
   Widget _quoteOfTheDayBuilder(){
-    // todo: Implement logic to get quote dynamically
-    // todo: find out why this doesn't work
     String quoteOfTheDay = "If you cannot do great things, do small things in a great way.";
     String authorOfQuote = "Napolean Hill";
 
     return FutureBuilder(
-      future: getRandomQuote(),
+      future: QuoteClass().getQuoteOfTheDay(),
       builder: (BuildContext context, snapshot){
         if (snapshot.hasData){
           print(snapshot.data);
-          quoteOfTheDay = snapshot.data["Quote"];
-          authorOfQuote = snapshot.data["Author"];
+          quoteOfTheDay = snapshot.data.quote;
+          authorOfQuote = snapshot.data.author;
         }else{
           if (snapshot.hasError){
             print(snapshot.error);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/homepage/homepageService.dart' as hpService;
+import 'package:flutter_app/projects/homepage/homepageService.dart' as hpService;
 import 'package:flutter_app/helpers/appbar.dart' as appbar;
 
 import 'package:flutter_app/BLoC/login.dart' as loginBLoC;
@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 
-// State of homepage
+// State of projects.homepage
 class _HomePageState extends State<HomePage> {
 
   hpService.HomePageService service;
