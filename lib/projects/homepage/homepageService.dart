@@ -20,11 +20,8 @@ class HomePageService {
         left: 10,
         right: 10,
       ),
-      child: Column(
-        children: <Widget>[
-          _buildMotivationalCard(),
-          _projectsContentArea(context),
-        ],
+      child: ListView(
+        children: [_buildMotivationalCard()] + _getAllProjects(context),
       ),
     );
   }
@@ -92,9 +89,11 @@ class HomePageService {
       future: QuoteClass().getQuoteOfTheDay(),
       builder: (BuildContext context, snapshot){
         if (snapshot.hasData){
-          print(snapshot.data);
-          quoteOfTheDay = snapshot.data.quote;
-          authorOfQuote = snapshot.data.author;
+          // catch for error for chrome dev
+          if (snapshot.data.author != "Error"){
+            quoteOfTheDay = snapshot.data.quote;
+            authorOfQuote = snapshot.data.author;
+          }
         }else{
           if (snapshot.hasError){
             print(snapshot.error);
@@ -112,18 +111,6 @@ class HomePageService {
       },
     );
   }
-
-  Widget _projectsContentArea(BuildContext context){
-    return Container(
-        child: new Expanded(
-            child: new ListView(
-              shrinkWrap: true,
-              children: _getAllProjects(context),
-            )
-        )
-    );
-  }
-
 
   List<Widget> _getAllProjects(BuildContext context){
     ProjectsData data = ProjectsData();

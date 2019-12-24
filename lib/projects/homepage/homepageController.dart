@@ -91,9 +91,8 @@ class _HomePageState extends State<HomePage> {
   Drawer homepageDrawer(BuildContext context){
     return Drawer(
       child: CustomReorderableListView(
-        padding: EdgeInsets.zero,
-        onReorder: _onReorder,
-        children: data
+          onReorder: _onReorder,
+          children: data
       ),
     );
   }
@@ -105,7 +104,6 @@ class _HomePageState extends State<HomePage> {
     return new AppBar(
       elevation: 0.0,
       backgroundColor: backgroundColor,
-
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[

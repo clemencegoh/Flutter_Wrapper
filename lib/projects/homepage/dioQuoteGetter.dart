@@ -48,15 +48,12 @@ class QuoteClass {
 //      quotes = await this._getQuotesFromDB();
     }
     else{
-      print("Trying to get a new quote..");
       // First time or refresh daily
       quotes = await this._getQuotesFromPage(random.nextInt(10));
       this._setLastUpdated();
 //      this._setDB(quotes);
     }
     QuoteItem chosenQuote = quotes[random.nextInt(quotes.length)];
-    String chosen = chosenQuote.quote;
-    print("Setting $chosen as the quote");
     this._setQuoteOfTheDayIntoSharedPrefs(chosenQuote);
     return chosenQuote;
   }
