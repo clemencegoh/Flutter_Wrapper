@@ -11,6 +11,7 @@ class ProjectsData {
     return _data;
   }
 
+  // todo: ideally should refactor this together with login to use cloud DB
   List<Project> getAllData(){
     return [
       Project(
@@ -21,10 +22,16 @@ class ProjectsData {
         "/lunchPredictor"
       ),
       Project(
-          "Simple Webview",
-          "Attempt at trying to show the capabilities of webview on flutter",
-          Icons.open_in_browser,
-          "/webview"
+          "Learning App",
+          "App for learning something new every day across various topics",
+          Icons.school,
+          "/learningApp"
+      ),
+      Project(
+        "Simple Webview",
+        "Attempt at trying to show the capabilities of webview on flutter",
+        Icons.open_in_browser,
+        "/webview"
       ),
     ];
   }

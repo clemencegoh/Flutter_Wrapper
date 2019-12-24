@@ -91,8 +91,11 @@ class _HomePageState extends State<HomePage> {
   Drawer homepageDrawer(BuildContext context){
     return Drawer(
       child: CustomReorderableListView(
-          onReorder: _onReorder,
-          children: data
+        padding: EdgeInsets.only(
+          top: 16,
+        ),
+        onReorder: _onReorder,
+        children: data
       ),
     );
   }
