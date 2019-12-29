@@ -14,10 +14,6 @@ AppBar commonAppbar(BuildContext context, String title) {
     title: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        functionalIcon(
-            Icons.home,
-            (){ Navigator.pushReplacementNamed(context, "/"); },
-        ),
         Text(title),
         functionalIcon(Icons.person_pin, loginBLoC.login),
       ],

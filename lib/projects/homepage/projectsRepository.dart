@@ -14,6 +14,12 @@ class ProjectsData {
   List<Project> getAllData(){
     return [
       Project(
+        "QR Scanner",
+        "Scan QR codes or generate one",
+        Icons.crop_free,
+        "/qrCodeScanner"
+      ),
+      Project(
         "Location Prediction",
         "Submit current location "
             "or guess where you'll be having lunch today!",
