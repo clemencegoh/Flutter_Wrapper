@@ -119,8 +119,7 @@ class LunchPredictorService{
       Flexible(
         child: Text(
           "Welcome!\n"
-              "This app tries to predict your next "
-              "lunch location using Machine Learning!",
+              "This app scrapes the web for topics you might be interested in",
           textAlign: TextAlign.center,
           style: TextStyle(
               fontWeight: FontWeight.bold
