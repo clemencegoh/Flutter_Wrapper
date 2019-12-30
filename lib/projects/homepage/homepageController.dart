@@ -101,16 +101,16 @@ class _HomePageState extends State<HomePage> {
 
     Color backgroundColor = const Color(0xff2E4A70);
 
-    return new AppBar(
+    return AppBar(
       elevation: 0.0,
       backgroundColor: backgroundColor,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text("Projects"),
-          appbar.functionalIcon(Icons.person_pin, loginBLoC.login),
-        ],
-      ),
+            Text("Projects"),
+            appbar.functionalIcon(Icons.person_pin, loginBLoC.login),
+          ],
+        ),
     );
   }
 
@@ -122,5 +122,4 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
-
 }

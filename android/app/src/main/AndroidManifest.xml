@@ -14,6 +14,7 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="Clemence's Projects Wrapper"
         android:icon="@mipmap/ic_launcher">
+        <activity android:name="com.apptreesoftware.barcodescan.BarcodeScannerActivity"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

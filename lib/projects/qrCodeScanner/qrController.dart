@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/appbar.dart' as appbar;
 import 'package:flutter_app/projects/qrCodeScanner/qrService.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
 
 
 class QrCodeScannerController extends StatefulWidget {
@@ -19,10 +18,18 @@ class QRCodeScannerState extends State<QrCodeScannerController> {
   String barcodeRes = '';
   int currentIndex = 0;
   Uint8List generatedCode = Uint8List(200);
-  QRService service = new QRService();
+  QRService service;
+
+  @override
+  void initState(){
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    this.service = QRService(context);
+
     return new Scaffold(
       appBar: appbar.commonAppbar(context, "QR Code Scanner"),
       body: service.getWidget(currentIndex),
@@ -41,7 +48,7 @@ class QRCodeScannerState extends State<QrCodeScannerController> {
       },
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       elevation: 8,
-//        fabLocation: BubbleBottomBarFabLocation.center, //new
+//      fabLocation: BubbleBottomBarFabLocation.center, //new
       hasNotch: false, //new
       hasInk: true, //new, gives a cute ink effect
       inkColor: Colors.black12, //optional, uses theme color if not specified
@@ -54,8 +61,8 @@ class QRCodeScannerState extends State<QrCodeScannerController> {
         ),
         BubbleBottomBarItem(
             backgroundColor: Colors.indigo,
-            icon: Icon(Icons.crop_free, color: Colors.black,),
-            activeIcon: Icon(Icons.crop_free, color: Colors.indigo,),
+            icon: Icon(Icons.camera, color: Colors.black,),
+            activeIcon: Icon(Icons.camera, color: Colors.indigo,),
             title: Text("Scan new")
         ),
         BubbleBottomBarItem(
@@ -68,10 +75,5 @@ class QRCodeScannerState extends State<QrCodeScannerController> {
     );
   }
 
-  Future _scanPicture() async {
-    String barcodeRes = await scanner.scan();
-    setState(() {
-      this.barcodeRes = barcodeRes;
-    });
-  }
+
 }
