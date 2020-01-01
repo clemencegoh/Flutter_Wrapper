@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/appbar.dart' as appbar;
-import 'package:flutter_app/projects/qrCodeScanner/qrService.dart';
+import 'package:flutter_app/projects/qrCodeScanner/qrBodyController.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 
 
@@ -48,7 +48,6 @@ class QRCodeScannerState extends State<QrCodeScannerController> {
       },
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       elevation: 8,
-//      fabLocation: BubbleBottomBarFabLocation.center, //new
       hasNotch: false, //new
       hasInk: true, //new, gives a cute ink effect
       inkColor: Colors.black12, //optional, uses theme color if not specified

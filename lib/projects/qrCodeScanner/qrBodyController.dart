@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/projects/qrCodeScanner/qrGeneratorController.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:flutter_app/projects/qrCodeScanner/qrBarcodeScanner.dart';
+import 'package:flutter_app/projects/qrCodeScanner/qrScannerService.dart';
 
 
 
+// Chooses between the 3 possible widgets
 class QRService {
 
   QRService(BuildContext buildContext){
