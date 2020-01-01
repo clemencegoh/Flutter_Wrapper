@@ -1,4 +1,4 @@
-import 'package:flushbar/flushbar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/projects/qrCodeScanner/qrGeneratorRepository.dart';
 import 'package:form_bloc/form_bloc.dart';
@@ -6,18 +6,21 @@ import 'package:form_bloc/form_bloc.dart';
 class QRFormBloc extends FormBloc<String, String> {
   final messageField = TextFieldBloc();
 
-  final QRGeneratorRepository _repository;
   BuildContext context;
 
-  QRFormBloc(this._repository, this.context);
+  QRFormBloc(this.context);
 
   @override
   List<FieldBloc> get fieldBlocs => [messageField];
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
+
+    // Generate new instance on every submit
+    QRGeneratorRepository _repository = new QRGeneratorRepository();
+
     try {
-      Widget builtImage = _repository.GenerateQRImageFrom(messageField.value);
+      Widget builtImage = await _repository.GenerateQRImageFrom(messageField.value);
 
       Dialog toShow = Dialog(
         shape: RoundedRectangleBorder(
@@ -34,20 +37,6 @@ class QRFormBloc extends FormBloc<String, String> {
         context: this.context,
         builder: (BuildContext context) => toShow,
       );
-
-      // todo: verify if flushbar works
-      Flushbar(
-        message: "Image saved to recent",
-        icon: Icon(
-          Icons.info_outline,
-          size: 28.0,
-          color: Colors.blue[300],
-        ),
-        margin: EdgeInsets.all(8),
-        borderRadius: 16.0,
-        duration: Duration(seconds: 3),
-        leftBarIndicatorColor: Colors.blue[300],
-      )..show(this.context);
 
       // todo: actually save this into recents tab
 

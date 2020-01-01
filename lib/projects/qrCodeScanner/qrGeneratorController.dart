@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/projects/qrCodeScanner/qrFormBLoC.dart';
-import 'package:flutter_app/projects/qrCodeScanner/qrGeneratorRepository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:flushbar/flushbar.dart';
+
 
 class QRGenerator extends StatefulWidget {
   @override
@@ -17,21 +18,43 @@ class _QrGeneratorState extends State<QRGenerator> {
 
   final _formKey = GlobalKey<_QrGeneratorState>();
 
-  QRGeneratorRepository repository = new QRGeneratorRepository();
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<QRFormBloc>(
-      builder: (context) =>
-          QRFormBloc(this.repository, context),
+      builder: (context) => QRFormBloc(context),
       child: Builder(
         builder: (context) {
           final formBloc = BlocProvider.of<QRFormBloc>(context);
 
           return Scaffold(
             body: FormBlocListener<QRFormBloc, String, String>(
-              onSuccess: (context, state){  },
-              onFailure: (context, state){  },
+              onSuccess: (context, state){
+                Flushbar(
+                  message: "Image saved to recent",
+                  icon: Icon(
+                    Icons.info_outline,
+                    size: 28.0,
+                    color: Colors.blue[300],
+                  ),
+                  duration: Duration(seconds: 3),
+                  leftBarIndicatorColor: Colors.blue[300],
+                )..show(this.context);
+              },
+              onFailure: (context, state){
+                String failureRes = state.failureResponse;
+                print("Error with message: $failureRes");
+
+                Flushbar(
+                  message: "Error with message: $failureRes",
+                  icon: Icon(
+                    Icons.info_outline,
+                    size: 28.0,
+                    color: Colors.red[300],
+                  ),
+                  duration: Duration(seconds: 3),
+                  leftBarIndicatorColor: Colors.red[300],
+                )..show(this.context);
+              },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
