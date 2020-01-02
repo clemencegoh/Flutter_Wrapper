@@ -2,6 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:qr_code_tools/qr_code_tools.dart';
 
 
 
@@ -12,10 +15,18 @@ class QRBarcodeScanner extends StatefulWidget {
 
 class _QrScannerState extends State<QRBarcodeScanner> {
   String barcode = 'Scan something to display the link here!';
+  bool dialVisible = true;
 
   @override
   void initState() {
     super.initState();
+
+  }
+
+  void setDialVisible(bool value) {
+    setState(() {
+      dialVisible = value;
+    });
   }
 
   @override
@@ -29,12 +40,56 @@ class _QrScannerState extends State<QRBarcodeScanner> {
           child: Text(this.barcode),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.camera_alt),
-        backgroundColor: Colors.indigoAccent,
-        onPressed: scan,
-      ),
+      floatingActionButton: _speedDialFAB(),
     );
+  }
+
+  SpeedDial _speedDialFAB(){
+    return SpeedDial(
+      marginRight: 18,
+      marginBottom: 20,
+      animatedIcon: AnimatedIcons.menu_close,
+      animatedIconTheme: IconThemeData(size: 22.0),
+      onOpen: () => print('OPENING DIAL'),
+      onClose: () => print('DIAL CLOSED'),
+      visible: dialVisible,
+      curve: Curves.bounceIn,
+      children: [
+
+        // Scan using camera
+        SpeedDialChild(
+          child: Icon(Icons.camera_alt, color: Colors.white),
+          backgroundColor: const Color(0xff9A92FF),
+          onTap: () => scan(),
+        ),
+
+        // Scan QR Code from file
+        SpeedDialChild(
+          child: Icon(Icons.folder, color: Colors.white),
+          backgroundColor: const Color(0xff85BDFF),
+          onTap: () => scanFromFile(),
+        ),
+      ],
+    );
+  }
+
+  Future _getImage() async {
+    return await ImagePicker.pickImage(source: ImageSource.gallery);
+  }
+
+  Future scanFromFile() async {
+    try{
+      String filepath = await _getImage();
+
+      String data = await QrCodeToolsPlugin.decodeFrom(filepath);
+      setState(() {
+        this.barcode = data;
+      });
+    } catch (e) {
+      setState(() {
+        this.barcode = 'Error caught: $e';
+      });
+    }
   }
 
   Future scan() async {

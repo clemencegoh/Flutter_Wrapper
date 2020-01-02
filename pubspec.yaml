@@ -36,6 +36,8 @@ dependencies:
 
   qr_flutter: ^3.2.0                # QR code generator only
   barcode_scan: ^1.0.0              # QR and barcode reader from camera
+  qr_code_tools: ^0.0.6             # QR reader from file
+  image_picker: 0.6.2+3             # pick image from gallery
 
   form_bloc: ^0.5.1                 # creating forms
   flutter_form_bloc: ^0.4.2         # part of form BLoC
