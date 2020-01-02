@@ -2,6 +2,9 @@
 
 Flutter application acting as a UI for all personal side projects
 
+# General TODOs
+- [ ] Use ListView.builder instead of ListView for lazy loading with scrolling
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
