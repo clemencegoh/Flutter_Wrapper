@@ -4,6 +4,7 @@ Flutter application acting as a UI for all personal side projects
 
 # General TODOs
 - [ ] Use ListView.builder instead of ListView for lazy loading with scrolling
+  - Refer to: https://appdividend.com/2019/01/01/flutter-listview-example-displaying-dynamic-contents-tutorial/
 
 ## Getting Started
 
