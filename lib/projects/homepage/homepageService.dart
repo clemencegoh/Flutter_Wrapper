@@ -17,8 +17,8 @@ class HomePageService {
     return Container(
       padding: EdgeInsets.only(
         top: 24,
-        left: 10,
-        right: 10,
+        left: 8,
+        right: 8,
       ),
       child: ListView(
         children: [_buildMotivationalCard()] + _getAllProjects(context),
@@ -30,7 +30,7 @@ class HomePageService {
   Widget _buildMotivationalCard(){
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: BorderRadius.circular(16.0),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -47,20 +47,20 @@ class HomePageService {
     return Center(
       child: Container(
         padding: EdgeInsets.only(
-          top: 12.0,
-          left: 12.0,
-          right: 12.0,
+          top: 8.0,
+          left: 8.0,
+          right: 8.0,
         ),
         child: Stack(
             children: <Widget>[
               ClipRRect(
-                borderRadius: BorderRadius.circular(15.0),
+                borderRadius: BorderRadius.circular(16.0),
                 child: Image.asset("assets/images/darker-rain.jpg"),
               ),
 
               Container(
                 padding: EdgeInsets.only(
-                  top: 60.0,
+                  top: 64.0,
                 ),
                 child: Center(
                   // todo: replace this when login implemented
@@ -116,15 +116,15 @@ class HomePageService {
       projectWidgets.add(
         new Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
+            borderRadius: BorderRadius.circular(16.0),
           ),
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 10.0),
+            padding: EdgeInsets.symmetric(vertical: 8.0),
 
             child: ListTile(
               leading: Icon(
                 proj.icon,
-                size: 38,
+                size: 32,
               ),
               title: Text(proj.title),
               subtitle: Text(proj.description),
