@@ -13,7 +13,6 @@ class _WebViewLoadingState extends State<WebViewLoadingState> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // on pressing back button, exiting the screen instead of showing loading symbol
     _webViewPlugin.onDestroy.listen((_) {
@@ -35,7 +34,7 @@ class _WebViewLoadingState extends State<WebViewLoadingState> {
           withJavascript: true,
           appCacheEnabled: true,
           appBar: AppBar(
-            title: Text("Browser"),
+            title: Center( child: Text("My Browser")),
           ),
         ),
         onWillPop: () {

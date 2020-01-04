@@ -28,7 +28,7 @@ class ProjectsData {
       ),
       Project(
           "Simple Webview",
-          "Attempt at trying to show the capabilities of webview on flutter",
+          "Basic webview in flutter",
           Icons.open_in_browser,
           "/webview"
       ),
