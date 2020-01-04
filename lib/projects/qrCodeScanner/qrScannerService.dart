@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:barcode_scan/barcode_scan.dart';
@@ -50,12 +51,11 @@ class _QrScannerState extends State<QRBarcodeScanner> {
       marginBottom: 20,
       animatedIcon: AnimatedIcons.menu_close,
       animatedIconTheme: IconThemeData(size: 22.0),
-      onOpen: () => print('OPENING DIAL'),
-      onClose: () => print('DIAL CLOSED'),
+      onOpen: (){},
+      onClose: (){},
       visible: dialVisible,
       curve: Curves.bounceIn,
       children: [
-
         // Scan using camera
         SpeedDialChild(
           child: Icon(Icons.camera_alt, color: Colors.white),
@@ -73,19 +73,30 @@ class _QrScannerState extends State<QRBarcodeScanner> {
     );
   }
 
-  Future _getImage() async {
+  Future _getImageFile() async {
     return await ImagePicker.pickImage(source: ImageSource.gallery);
   }
 
   Future scanFromFile() async {
     try{
-      String filepath = await _getImage();
+      File imageFile = await _getImageFile();
+      String filepath = imageFile.path;
 
       String data = await QrCodeToolsPlugin.decodeFrom(filepath);
       setState(() {
         this.barcode = data;
       });
-    } catch (e) {
+    } on PlatformException catch (e){
+      // Catch this error for not found data
+      setState(() {
+        this.barcode = "Did not detect a valid barcode or QR code";
+      });
+    } on NoSuchMethodError catch (e){
+      // Back button pressed, do nothing
+      return;
+    }
+
+    catch (e) {
       setState(() {
         this.barcode = 'Error caught: $e';
       });
