@@ -33,7 +33,7 @@ class _QrGeneratorState extends State<QRGenerator> {
                   message: "Image saved to recent",
                   icon: Icon(
                     Icons.info_outline,
-                    size: 28.0,
+                    size: 24.0,
                     color: Colors.blue[300],
                   ),
                   duration: Duration(seconds: 3),
@@ -48,7 +48,7 @@ class _QrGeneratorState extends State<QRGenerator> {
                   message: "Error with message: $failureRes",
                   icon: Icon(
                     Icons.info_outline,
-                    size: 28.0,
+                    size: 24.0,
                     color: Colors.red[300],
                   ),
                   duration: Duration(seconds: 3),
