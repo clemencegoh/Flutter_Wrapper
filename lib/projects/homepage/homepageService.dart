@@ -14,14 +14,15 @@ class HomePageService {
 
   // Contains Motivation Card and project cards
   Widget bodyCardsArea(){
+
+    List<Widget> allContent = [_buildMotivationalCard()] + _getAllProjects(context);
+
     return Container(
-      padding: EdgeInsets.only(
-        top: 24,
-        left: 8,
-        right: 8,
+      padding: EdgeInsets.symmetric(
+        horizontal: 8.0,
       ),
       child: ListView(
-        children: [_buildMotivationalCard()] + _getAllProjects(context),
+        children: allContent,
       ),
     );
   }
