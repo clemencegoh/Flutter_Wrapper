@@ -101,10 +101,6 @@ class HomePageService {
         }
 
         return ListTile(
-          leading: Icon(
-            Icons.format_quote,
-            size: 30,
-          ),
           title: Text("$quoteOfTheDay"),
           subtitle: Text("$authorOfQuote"),
         );
