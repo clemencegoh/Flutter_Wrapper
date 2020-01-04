@@ -101,9 +101,16 @@ class HomePageService {
           }
         }
 
-        return ListTile(
-          title: Text("$quoteOfTheDay"),
-          subtitle: Text("$authorOfQuote"),
+        return Container(
+          padding: EdgeInsets.symmetric(
+            vertical: 8.0,
+            horizontal: 0,
+          ),
+
+          child: ListTile(
+            title: Text("$quoteOfTheDay"),
+            subtitle: Text("- $authorOfQuote"),
+          ),
         );
       },
     );
