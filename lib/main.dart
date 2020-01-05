@@ -8,12 +8,12 @@ import 'package:flutter_app/projects/simpleWebview/webView.dart';
 void main() {
   runApp(
     MaterialApp(
-      initialRoute: '/',
+      initialRoute: HomePage.routeName,
       routes: {
-        '/': (context) => new HomePage(),
-        '/lunchPredictor': (context) => new LunchPredictorMain(),
-        '/webview': (context) => new WebViewLoadingState(),
-        '/qrCodeScanner': (context) => new QrCodeScannerController(),
+        HomePage.routeName: (context) => new HomePage(),
+        LunchPredictorMain.routeName: (context) => new LunchPredictorMain(),
+        SimpleWebView.routeName: (context) => new SimpleWebView(),
+        QrCodeScannerController.routeName: (context) => new QrCodeScannerController(),
       },
       debugShowCheckedModeBanner: false,
     )

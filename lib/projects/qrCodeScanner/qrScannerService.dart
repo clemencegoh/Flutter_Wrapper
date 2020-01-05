@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:flutter_app/projects/simpleWebview/webView.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qr_code_tools/qr_code_tools.dart';
+import 'package:flushbar/flushbar.dart';
 
 
 
@@ -37,12 +39,65 @@ class _QrScannerState extends State<QRBarcodeScanner> {
         margin: EdgeInsets.symmetric(
           horizontal: 20.0,
         ),
-        child: Center(
-          child: Text(this.barcode),
+        alignment: Alignment(0.0, 0.0),  // center alignment
+
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          child: Container(
+            padding: EdgeInsets.all(8.0),
+
+            child: ListTile(
+              title: Text(
+                this.barcode,
+                textAlign: TextAlign.center,
+              ),
+
+              onTap: (){
+                this._copyBarcodeMessageToClipboard();
+                this._showFlushbar(context, "Message copied to clipboard!");
+              },
+              onLongPress: (){
+                String attemptedURL = this.barcode;
+                if (!attemptedURL.contains('http')){
+                  if (!attemptedURL.startsWith('www')){
+                    this._showFlushbar(
+                      context,
+                      "This is probably not a url",
+                    );
+                    return;
+                  }
+
+                  // Try to append and be nice
+                  attemptedURL = 'https://' + attemptedURL;
+                }
+
+                // Give option to open in app browser
+                Navigator.pushNamed(
+                  context,
+                  SimpleWebView.routeName,
+                  arguments: WebviewFromScannerArgs(attemptedURL),
+                );
+              },
+
+            ),
+          ),
         ),
       ),
       floatingActionButton: _speedDialFAB(),
     );
+  }
+
+  void _copyBarcodeMessageToClipboard(){
+    Clipboard.setData(new ClipboardData(text: this.barcode));
+  }
+
+  void _showFlushbar(BuildContext context, String message){
+    Flushbar(
+      message: message,
+      duration: Duration(seconds: 3),
+    )..show(context);
   }
 
   SpeedDial _speedDialFAB(){
@@ -121,4 +176,10 @@ class _QrScannerState extends State<QRBarcodeScanner> {
       setState(() => this.barcode = 'Unknown error: $e');
     }
   }
+}
+
+class WebviewFromScannerArgs {
+  final String websiteURL;
+
+  WebviewFromScannerArgs(this.websiteURL);
 }

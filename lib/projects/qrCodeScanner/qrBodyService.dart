@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/projects/qrCodeScanner/qrGeneratorController.dart';
+import 'package:flutter_app/projects/qrCodeScanner/qrGeneratorService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_app/projects/qrCodeScanner/qrScannerService.dart';
@@ -49,7 +49,7 @@ class QRService {
     List<Widget> items = [
       Slidable(
         actionPane: SlidableDrawerActionPane(),
-        actionExtentRatio: 0.25,
+        actionExtentRatio: 0.24,
         child: Container(
           color: Colors.white,
           child: ListTile(
@@ -82,7 +82,7 @@ class QRService {
         items.add(
           Slidable(
             actionPane: SlidableDrawerActionPane(),
-            actionExtentRatio: 0.25,
+            actionExtentRatio: 0.24,
             child: Container(
               color: Colors.white,
               child: ListTile(

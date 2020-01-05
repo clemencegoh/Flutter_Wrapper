@@ -7,6 +7,8 @@ import 'package:flutter_app/projects/lunchPredictor/lunchPredictorService.dart';
 class LunchPredictorMain extends StatefulWidget {
   LunchPredictorMain({Key key}): super(key: key);
 
+  static const routeName = '/lunchPredictor';
+
   @override
   _LunchPredictorState createState() => new _LunchPredictorState();
 }

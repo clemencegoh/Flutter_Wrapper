@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/projects/qrCodeScanner/qrScannerService.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 
-class WebViewLoadingState extends StatefulWidget {
+class SimpleWebView extends StatefulWidget {
+  SimpleWebView({
+    Key key,
+  }): super(key: key);
+
+  static const routeName = '/webView';
+
   @override
-  _WebViewLoadingState createState() => _WebViewLoadingState();
+  WebViewLoadingState createState() => WebViewLoadingState();
 }
 
 
-class _WebViewLoadingState extends State<WebViewLoadingState> {
+class WebViewLoadingState extends State<SimpleWebView> {
   final _webViewPlugin = FlutterWebviewPlugin();
 
   @override
@@ -25,16 +32,24 @@ class _WebViewLoadingState extends State<WebViewLoadingState> {
 
   @override
   Widget build(BuildContext context) {
+    final WebviewFromScannerArgs arguments = ModalRoute.of(context).settings.arguments;
+
+    String webURL = "https://www.google.com/";
+
+    if (arguments != null) {
+      webURL = arguments.websiteURL;
+    }
+
     // WillPopScope will prevent loading
     return WillPopScope(
         child: WebviewScaffold(
-          url: "https://www.google.com",
+          url: webURL,
           withZoom: false,
           withLocalStorage: true,
           withJavascript: true,
           appCacheEnabled: true,
           appBar: AppBar(
-            title: Center( child: Text("My Browser")),
+            title: Text("Flutter Browser"),
           ),
         ),
         onWillPop: () {

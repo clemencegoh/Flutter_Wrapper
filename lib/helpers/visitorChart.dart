@@ -28,7 +28,7 @@ class VisitorChart extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(16.0),
         ),
         child: Padding(
           padding: const EdgeInsets.all(10),

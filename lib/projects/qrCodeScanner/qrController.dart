@@ -2,12 +2,14 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/appbar.dart' as appbar;
-import 'package:flutter_app/projects/qrCodeScanner/qrBodyController.dart';
+import 'package:flutter_app/projects/qrCodeScanner/qrBodyService.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 
 
 class QrCodeScannerController extends StatefulWidget {
   QrCodeScannerController({Key key}): super(key: key);
+
+  static const routeName = '/qrCodeScanner';
 
   @override
   QRCodeScannerState createState() => new QRCodeScannerState();

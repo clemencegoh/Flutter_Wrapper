@@ -4,7 +4,6 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 class QRGeneratorRepository {
 
-  // todo: figure out when and when not to use a repository
   Future<QrImage> GenerateQRImageFrom(String _data) async {
     return QrImage(
       data: _data,

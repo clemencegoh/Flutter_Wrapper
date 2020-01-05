@@ -29,6 +29,10 @@ class QRFormBloc extends FormBloc<String, String> {
         child: Container(
             height: 300.0,
             width: 300.0,
+            padding: EdgeInsets.symmetric(
+                vertical: 8.0,
+                horizontal: 8.0
+            ),
             child: builtImage,
         ),
       );
