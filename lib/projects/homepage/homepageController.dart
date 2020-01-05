@@ -10,6 +10,8 @@ class HomePage extends StatefulWidget {
 
   HomePage({Key key}): super(key: key);
 
+  static const routeName = '/';
+
   @override
   _HomePageState createState() => new _HomePageState();
 
