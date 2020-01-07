@@ -19,6 +19,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  flutter_launcher_icons: ^0.7.4    # launcher icon
+  
   http: ^0.12.0+2                   # http package
   charts_flutter: ^0.8.1            # generating charts
   rflutter_alert: ^1.0.2            # alert dialogs
@@ -52,6 +55,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
+flutter_icons:
+  android: "launcher_icon" 
+  ios: true
+  image_path: "assets/icons/clems_circle_logo.png"
 
 
 # For information on the generic Dart part of this file, see the
@@ -69,7 +77,8 @@ flutter:
   assets:
     - assets/images/darker-rain.jpg
     - assets/images/clem_logo_placeholder.jpg
-
+    - assets/icons/clems_circle_logo.png
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

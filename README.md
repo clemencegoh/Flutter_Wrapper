@@ -1,10 +1,14 @@
 # flutter_app
-
 Flutter application acting as a UI for all personal side projects
+- For the latest builds for android (apk): https://drive.google.com/open?id=1Z7nwtQQUDCkc_iNUO2vX2bVIoShgQfLD
+
 
 # General TODOs
 - [ ] Use ListView.builder instead of ListView for lazy loading with scrolling
   - Refer to: https://appdividend.com/2019/01/01/flutter-listview-example-displaying-dynamic-contents-tutorial/
+- [ ] Add splashscreen to app
+- [ ] Add Custom font 
+- [ ] Decide on Logo and Name
 
 ## Getting Started
 
