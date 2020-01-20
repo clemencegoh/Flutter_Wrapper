@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:flutter_app/projects/homepage/dbHelper.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:dio/dio.dart';
@@ -16,7 +15,8 @@ import 'package:shared_preferences/shared_preferences.dart';
  */
 class QuoteClass {
   static final QuoteClass _singleton = QuoteClass._internal();
-  final DBHelper _dbHelper = DBHelper();
+  // todo: decide whether or not to use this
+//  final DBHelper _dbHelper = DBHelper();
 
   factory QuoteClass() {
     return _singleton;
