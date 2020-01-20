@@ -60,7 +60,7 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon" 
   ios: true
-  image_path: "assets/icons/clems_circle_logo.png"
+  image_path: "assets/icons/clem_logo_cropped.png"
 
 
 # For information on the generic Dart part of this file, see the
@@ -78,8 +78,8 @@ flutter:
   assets:
     - assets/images/darker-rain.jpg
     - assets/images/clem_logo_placeholder.jpg
-    - assets/icons/clems_circle_logo.png
-    
+    - assets/icons/clem_logo_cropped.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

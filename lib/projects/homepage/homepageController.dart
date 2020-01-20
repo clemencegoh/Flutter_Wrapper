@@ -34,8 +34,6 @@ class _HomePageState extends State<HomePage> {
       home: new Scaffold(
         appBar: wrapperAppBar(context),
         body: wrapperBody(),
-        // todo: pass in state containing favourites
-        drawer: homepageDrawer(context),
       ),
     );
   }
@@ -43,60 +41,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState(){
     super.initState();
-  }
-
-  // todo: replace this with real implementation
-  var data = <Widget>[
-    ListTile(
-      key: ObjectKey("one"),
-      leading: Icon(Icons.ac_unit),
-      title: Text("Item 1 ??"),
-      onTap: (){
-        print("this is item 1");
-      },
-    ),
-    ListTile(
-      key: ObjectKey("two"),
-      leading: Icon(Icons.not_listed_location),
-      title: Text("Item 2 ??"),
-      onTap: (){
-        print("this is item 2");
-      },
-    ),
-    ListTile(
-      key: ObjectKey("three"),
-      leading: Icon(Icons.add_comment),
-      title: Text("Item 3 ??"),
-      onTap: (){
-        print("this is item 3");
-      },
-    ),
-  ];
-
-  // todo: not working
-  void _onReorder(int oldIndex, int newIndex){
-    setState(() {
-      // Index has to change because the size of the list changes
-      if (oldIndex < newIndex) newIndex--;
-
-      // have to wait for flutter to cleanup the old widget first
-      // otherwise there might be a GlobalKey conflict
-      Future.delayed(Duration(milliseconds: 10), (){
-        setState(() {
-          final Widget item = data.removeAt(oldIndex);
-          data.insert(newIndex, item);
-        });
-      });
-    });
-  }
-
-  Drawer homepageDrawer(BuildContext context){
-    return Drawer(
-      child: CustomReorderableListView(
-          onReorder: _onReorder,
-          children: data
-      ),
-    );
   }
 
   Widget wrapperAppBar(BuildContext context) {
