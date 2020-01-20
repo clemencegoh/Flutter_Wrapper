@@ -3,12 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:barcode_scan/barcode_scan.dart';
-import 'package:flutter_app/projects/simpleWebview/webView.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qr_code_tools/qr_code_tools.dart';
 import 'package:flushbar/flushbar.dart';
-
 
 
 class QRBarcodeScanner extends StatefulWidget {
@@ -60,33 +59,54 @@ class _QrScannerState extends State<QRBarcodeScanner> {
               },
               onLongPress: (){
                 String attemptedURL = this.barcode;
-                if (!attemptedURL.contains('http')){
-                  if (!attemptedURL.startsWith('www')){
-                    this._showFlushbar(
-                      context,
-                      "This is probably not a url",
-                    );
-                    return;
-                  }
+                // render all to lower case
+                attemptedURL = attemptedURL.toLowerCase();
 
-                  // Try to append and be nice
-                  attemptedURL = 'https://' + attemptedURL;
+                // intelligently guess what to do
+                if (!_checkIfURL(attemptedURL)){
+                  this._launchNativeBrowser(
+                      "https://www.google.com/search?q=" + attemptedURL
+                  );
                 }
-
-                // Give option to open in app browser
-                Navigator.pushNamed(
-                  context,
-                  SimpleWebView.routeName,
-                  arguments: WebviewFromScannerArgs(attemptedURL),
-                );
               },
-
             ),
           ),
         ),
       ),
       floatingActionButton: _speedDialFAB(),
     );
+  }
+
+  bool _checkIfURL(String barcodeRes){
+    // checks if the barcode Res is meant to be a URL
+
+    // typically, single length tends to be URLs
+    List<String> parsed = barcodeRes.split(" ");
+    if (parsed.length == 1){
+      // open as URL
+      String urlString = parsed[0];
+      if (!urlString.endsWith('.com')){ urlString += ".com"; }
+      if (!urlString.startsWith('http')){
+        if (!urlString.startsWith('www.')){ urlString = "www." + urlString; }
+        urlString = "https://" + urlString;
+      }
+      this._launchNativeBrowser(urlString);
+      return true;
+    }
+    return false;
+  }
+
+  // Note: This method is only for mobile
+  // Launches native browser, allowing user to choose
+  void _launchNativeBrowser(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      this._showFlushbar(
+        context,
+        "Could not launch $url",
+      );
+    }
   }
 
   void _copyBarcodeMessageToClipboard(){
