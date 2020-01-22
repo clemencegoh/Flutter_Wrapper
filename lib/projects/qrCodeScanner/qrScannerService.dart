@@ -11,7 +11,6 @@ import 'package:flushbar/flushbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-
 class QRScannerService extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new QRScannerServiceState();
