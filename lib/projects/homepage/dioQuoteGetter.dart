@@ -45,21 +45,15 @@ class QuoteClass {
 
     if (isAvailable){
       return await this._getSavedQuote();
-//      quotes = await this._getQuotesFromDB();
     }
     else{
       // First time or refresh daily
       quotes = await this._getQuotesFromPage(random.nextInt(10));
       this._setLastUpdated();
-//      this._setDB(quotes);
     }
     QuoteItem chosenQuote = quotes[random.nextInt(quotes.length)];
     this._setQuoteOfTheDayIntoSharedPrefs(chosenQuote);
     return chosenQuote;
-  }
-
-  void _setDB(List<QuoteItem> quotes) async {
-    // todo: implement as a feature
   }
 
   void _setQuoteOfTheDayIntoSharedPrefs(QuoteItem quoteItem) async {
@@ -82,10 +76,6 @@ class QuoteClass {
     prefs.setInt(lastUpdatedDay, today.day);
     prefs.setInt(lastUpdatedMonth, today.month);
     prefs.setInt(lastUpdatedYear, today.year);
-  }
-
-  Future<List<QuoteItem>> _getQuotesFromDB() async {
-    // todo: implement
   }
 
   Future<bool> _checkCacheValidity() async {

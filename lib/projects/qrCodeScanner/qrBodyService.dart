@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/projects/qrCodeScanner/qrController.dart';
 import 'package:flutter_app/projects/qrCodeScanner/qrGeneratorService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -15,7 +16,7 @@ class QRService {
   }
 
   BuildContext context;
-  String recentVisits = 'QR_recent_visits';
+  String recentVisits = QRScannerServiceState.recentVisits;
 
   Widget getWidget(int choice){
     switch (choice){
@@ -134,7 +135,7 @@ class QRService {
   }
 
   Widget _startScanPage(){
-    return new QRBarcodeScanner();
+    return new QRScannerService();
   }
 
   Widget _generateNewPage(){
