@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/projects/qrCodeScanner/qrController.dart';
 import 'package:flutter_app/projects/qrCodeScanner/qrGeneratorService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
