@@ -100,10 +100,9 @@ class QRScannerServiceState extends State<QRScannerService> {
 
   void _saveURLToPrefs(String url) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(
-        QRScannerServiceState.recentVisits,
-        url
-    );
+    List<String> currentList = prefs.getStringList(recentVisits);
+    currentList.add(url);
+    prefs.setStringList(recentVisits, currentList);
   }
 
   // Note: This method is only for mobile
