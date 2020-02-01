@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/projects/qrCodeScanner/qrScannerService.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 
@@ -57,4 +56,10 @@ class WebViewLoadingState extends State<SimpleWebView> {
         }
     );
   }
+}
+
+class WebviewFromScannerArgs {
+  final String websiteURL;
+
+  WebviewFromScannerArgs(this.websiteURL);
 }

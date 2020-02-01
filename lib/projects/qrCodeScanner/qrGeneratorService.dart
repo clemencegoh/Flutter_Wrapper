@@ -76,7 +76,7 @@ class _QrGeneratorState extends State<QRGenerator> {
                     padding: const EdgeInsets.all(8.0),
                     child: RaisedButton(
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
-                      onPressed: formBloc.submit,
+                      onPressed: () => formBloc.submit(),
                       child: Center(child: Text('Generate')),
                     ),
                   ),

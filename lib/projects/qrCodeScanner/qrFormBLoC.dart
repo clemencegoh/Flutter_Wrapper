@@ -41,12 +41,10 @@ class QRFormBloc extends FormBloc<String, String> {
         context: this.context,
         builder: (BuildContext context) => toShow,
       );
-
-      // todo: actually save this into recents tab
-
       yield currentState.toSuccess();
     } catch (e) {
       yield currentState.toFailure("$e");
     }
+    return;
   }
 }

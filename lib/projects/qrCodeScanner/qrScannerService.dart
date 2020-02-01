@@ -8,21 +8,22 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qr_code_tools/qr_code_tools.dart';
 import 'package:flushbar/flushbar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
-class QRBarcodeScanner extends StatefulWidget {
+class QRScannerService extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new _QrScannerState();
+  State<StatefulWidget> createState() => new QRScannerServiceState();
 }
 
-class _QrScannerState extends State<QRBarcodeScanner> {
+class QRScannerServiceState extends State<QRScannerService> {
   String barcode = 'Scan something to display the link here!';
   bool dialVisible = true;
+  static final String recentVisits = 'clem_QR_recent_visits';
 
   @override
   void initState() {
     super.initState();
-
   }
 
   void setDialVisible(bool value) {
@@ -64,9 +65,9 @@ class _QrScannerState extends State<QRBarcodeScanner> {
 
                 // intelligently guess what to do
                 if (!_checkIfURL(attemptedURL)){
-                  this._launchNativeBrowser(
-                      "https://www.google.com/search?q=" + attemptedURL
-                  );
+                  String builtQuery = "https://www.google.com/search?q=" + attemptedURL;
+                  _saveURLToPrefs(builtQuery);
+                  this._launchNativeBrowser(builtQuery);
                 }
               },
             ),
@@ -85,15 +86,30 @@ class _QrScannerState extends State<QRBarcodeScanner> {
     if (parsed.length == 1){
       // open as URL
       String urlString = parsed[0];
-      if (!urlString.endsWith('.com')){ urlString += ".com"; }
       if (!urlString.startsWith('http')){
+        const commonExtensions = ['.com', '.io', '.net', '.org', '.co'];
         if (!urlString.startsWith('www.')){ urlString = "www." + urlString; }
+
+        bool allNotPresent = true;
+        commonExtensions.forEach((ext){
+          allNotPresent = allNotPresent && !urlString.contains(ext);
+        });
+        if (allNotPresent){ urlString += '.com'; }
+
         urlString = "https://" + urlString;
       }
+      this._saveURLToPrefs(urlString);
       this._launchNativeBrowser(urlString);
       return true;
     }
     return false;
+  }
+
+  void _saveURLToPrefs(String url) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> currentList = prefs.getStringList(recentVisits) ?? [];
+    currentList.add(url);
+    prefs.setStringList(recentVisits, currentList);
   }
 
   // Note: This method is only for mobile
@@ -198,8 +214,3 @@ class _QrScannerState extends State<QRBarcodeScanner> {
   }
 }
 
-class WebviewFromScannerArgs {
-  final String websiteURL;
-
-  WebviewFromScannerArgs(this.websiteURL);
-}

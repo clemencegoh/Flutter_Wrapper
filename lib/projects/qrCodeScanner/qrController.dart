@@ -20,7 +20,6 @@ class QRCodeScannerState extends State<QrCodeScannerController> {
   String barcodeRes = '';
   int currentIndex = 0;
   Uint8List generatedCode = Uint8List(200);
-  QRService service;
 
   @override
   void initState(){
@@ -29,12 +28,9 @@ class QRCodeScannerState extends State<QrCodeScannerController> {
 
   @override
   Widget build(BuildContext context) {
-
-    this.service = QRService(context);
-
     return new Scaffold(
       appBar: appbar.commonAppbar(context, "QR Code Scanner"),
-      body: service.getWidget(currentIndex),
+      body: QRService(currentIndex: this.currentIndex),
       bottomNavigationBar: _buildBottomBar(),
     );
   }
