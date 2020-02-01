@@ -49,33 +49,7 @@ class QRServiceState extends State<QRService> {
   }
 
   Widget _getRecentVisits(BuildContext context, AsyncSnapshot snapshot) {
-    List<Widget> items = [
-      Slidable(
-        actionPane: SlidableDrawerActionPane(),
-        actionExtentRatio: 0.24,
-        child: Container(
-          color: Colors.white,
-          child: ListTile(
-            leading: Icon(Icons.info_outline),
-            title: Text("Sample Placeholder"),
-          ),
-        ),
-        secondaryActions: <Widget>[
-          IconSlideAction(
-            caption: "Go to",
-            icon: Icons.navigate_next,
-            color: Colors.blueGrey,
-            onTap: (){ print("Navigate"); },
-          ),
-          IconSlideAction(
-            caption: "remove",
-            color: Colors.red,
-            icon: Icons.delete_forever,
-            onTap: (){ print('deleting'); },
-          )
-        ],
-      ),
-    ];
+    List<Widget> items = [];
 
     if (snapshot.hasData) {
       items = []; // replace placeholder
