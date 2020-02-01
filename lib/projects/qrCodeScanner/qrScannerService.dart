@@ -87,7 +87,15 @@ class QRScannerServiceState extends State<QRScannerService> {
       // open as URL
       String urlString = parsed[0];
       if (!urlString.startsWith('http')){
+        const commonExtensions = ['.com', '.io', '.net', '.org', '.co'];
         if (!urlString.startsWith('www.')){ urlString = "www." + urlString; }
+
+        bool allNotPresent = true;
+        commonExtensions.forEach((ext){
+          allNotPresent = allNotPresent && !urlString.contains(ext);
+        });
+        if (allNotPresent){ urlString += '.com'; }
+
         urlString = "https://" + urlString;
       }
       this._saveURLToPrefs(urlString);
@@ -99,7 +107,7 @@ class QRScannerServiceState extends State<QRScannerService> {
 
   void _saveURLToPrefs(String url) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> currentList = prefs.getStringList(recentVisits);
+    List<String> currentList = prefs.getStringList(recentVisits) ?? [];
     currentList.add(url);
     prefs.setStringList(recentVisits, currentList);
   }

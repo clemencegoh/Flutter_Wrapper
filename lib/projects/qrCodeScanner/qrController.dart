@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/appbar.dart' as appbar;
 import 'package:flutter_app/projects/qrCodeScanner/qrBodyService.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 
 class QrCodeScannerController extends StatefulWidget {
@@ -31,7 +30,7 @@ class QRCodeScannerState extends State<QrCodeScannerController> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: appbar.commonAppbar(context, "QR Code Scanner"),
-      body: QRService(currentIndex),
+      body: QRService(currentIndex: this.currentIndex),
       bottomNavigationBar: _buildBottomBar(),
     );
   }

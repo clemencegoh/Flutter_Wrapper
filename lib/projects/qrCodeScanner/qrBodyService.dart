@@ -10,34 +10,30 @@ import 'package:flushbar/flushbar.dart';
 
 class QRService extends StatefulWidget {
 
-  int currentIndex;
+  final int currentIndex;
 
-  QRService(int currentIndex){
-    this.currentIndex = currentIndex;
-  }
+  QRService({
+    Key key,
+    @required this.currentIndex
+  }): super(key: key);
 
   @override
-  State<StatefulWidget> createState() => new QRServiceState(this.currentIndex);
+  State<StatefulWidget> createState() => new QRServiceState();
 }
 
 // Chooses between the 3 possible widgets
 class QRServiceState extends State<QRService> {
-
-  QRServiceState(int currentIndex){
-    this.currentIndex = currentIndex;
-  }
-
   @override
   void initState() {
     this.recentVisits = QRScannerServiceState.recentVisits;
   }
 
   String recentVisits;
-  int currentIndex;
 
   @override
   Widget build(BuildContext context){
-    switch (this.currentIndex){
+    print("Rebuilding...");
+    switch (widget.currentIndex){
       case 0: return _recentlyVisitedPage();
       case 1: return _startScanPage();
       case 2: return _generateNewPage();
@@ -50,18 +46,6 @@ class QRServiceState extends State<QRService> {
       future: _getRecentFromSharedPrefs(),
       builder: _getRecentVisits,
     );
-  }
-
-  Future _getRecentFromSharedPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getStringList(this.recentVisits);
-  }
-
-  void _saveRecentVisits(String location) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> visitItems = prefs.getStringList(this.recentVisits);
-    visitItems.add(location);
-    prefs.setStringList(this.recentVisits, visitItems);
   }
 
   Widget _getRecentVisits(BuildContext context, AsyncSnapshot snapshot) {
@@ -81,7 +65,6 @@ class QRServiceState extends State<QRService> {
             caption: "Go to",
             icon: Icons.navigate_next,
             color: Colors.blueGrey,
-            // todo: navigate to browser
             onTap: (){ print("Navigate"); },
           ),
           IconSlideAction(
@@ -113,7 +96,6 @@ class QRServiceState extends State<QRService> {
                   caption: "Go to",
                   icon: Icons.navigate_next,
                   color: Colors.blueGrey,
-                  // todo: navigate to browser
                   onTap: () {
                     print("Navigating to $value");
                     this._launchNativeBrowser(value);
@@ -126,7 +108,9 @@ class QRServiceState extends State<QRService> {
                   onTap: () {
                     print('deleting from $index');
                     setState(() {
-                      items.removeAt(index);
+                      List<String> newList = snapshot.data;
+                      newList.removeAt(index);
+                      _setRecentToPrefs(newList);
                     });
                   },
                 )
@@ -143,6 +127,16 @@ class QRServiceState extends State<QRService> {
         ),
       ),
     );
+  }
+
+  Future _getRecentFromSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getStringList(this.recentVisits);
+  }
+
+  void _setRecentToPrefs(List<String> recents) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList(recentVisits, recents);
   }
 
   Widget _startScanPage(){
