@@ -2,7 +2,6 @@ import 'package:flutter_app/projects/homepage/projectsModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/projects/lunchPredictor/lunchPredictorController.dart';
 import 'package:flutter_app/projects/qrCodeScanner/qrController.dart';
-import 'package:flutter_app/projects/simpleWebview/webView.dart';
 
 // Singleton
 class ProjectsData {
@@ -29,12 +28,12 @@ class ProjectsData {
         Icons.not_listed_location,
         LunchPredictorMain.routeName,
       ),
-      Project(
-          "Simple Webview",
-          "Basic webview in flutter",
-          Icons.open_in_browser,
-          SimpleWebView.routeName,
-      ),
+      // Project(
+      //     "Simple Webview",
+      //     "Basic webview in flutter",
+      //     Icons.open_in_browser,
+      //     SimpleWebView.routeName,
+      // ),
     ];
   }
 

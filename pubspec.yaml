@@ -28,7 +28,7 @@ dependencies:
   flushbar: ^1.5.0                  # for showing alerts at bottom or top
 
   html: ^0.13.3+3                   # webscraping
-  flutter_webview_plugin: ^0.3.10   # webview with flutter
+  # flutter_webview_plugin: ^0.3.10   # webview with flutter
   dio: ^3.0.7                       # http wrapper
 #  sqflite: ^1.2.0                   # sqlite with flutter
 #  path: ^1.6.4

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/constants/routes.dart';
 import 'package:flutter_app/projects/homepage/homepageController.dart';
 import 'package:flutter_app/projects/lunchPredictor/lunchPredictorController.dart';
 import 'package:flutter_app/projects/qrCodeScanner/qrController.dart';
-import 'package:flutter_app/projects/simpleWebview/webView.dart';
 
 
 void main() {
@@ -10,10 +10,9 @@ void main() {
     MaterialApp(
       initialRoute: HomePage.routeName,
       routes: {
-        HomePage.routeName: (context) => new HomePage(),
-        LunchPredictorMain.routeName: (context) => new LunchPredictorMain(),
-        SimpleWebView.routeName: (context) => new SimpleWebView(),
-        QrCodeScannerController.routeName: (context) => new QrCodeScannerController(),
+        homeRoute: (context) => new HomePage(),
+        lunchPredictionRoute: (context) => new LunchPredictorMain(),
+        qrScannerRoute: (context) => new QrCodeScannerController(),
       },
       debugShowCheckedModeBanner: false,
     )
