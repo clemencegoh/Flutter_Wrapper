@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/BLoC/login.dart' as loginBLoC;
 
 
 // build appbar
@@ -15,7 +14,7 @@ AppBar commonAppbar(BuildContext context, String title) {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Text(title),
-        functionalIcon(Icons.person_pin, loginBLoC.login),
+        functionalIcon(Icons.person_pin, (){ print("Login Placeholder"); }),
       ],
     ),
   );

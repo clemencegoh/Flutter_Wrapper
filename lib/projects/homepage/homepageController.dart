@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/projects/homepage/homepageService.dart' as hpService;
 import 'package:flutter_app/helpers/appbar.dart' as appbar;
 
-import 'package:flutter_app/BLoC/login.dart' as loginBLoC;
-
-import 'material/customReorderableListView.dart';
 // Homepage
 class HomePage extends StatefulWidget {
 
@@ -54,7 +51,10 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
             Text("Projects"),
-            appbar.functionalIcon(Icons.person_pin, loginBLoC.login),
+            appbar.functionalIcon(
+              Icons.person_pin,
+              (){ print("Login Placeholder"); }
+            ),
           ],
         ),
     );
