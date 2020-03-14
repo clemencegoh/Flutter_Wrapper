@@ -3,21 +3,25 @@ import 'package:flutter/material.dart';
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
 
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+// Simple login screen
+class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            
           ],
         ),
       ),
     );
   }
+
+ 
 }
