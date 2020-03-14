@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/constants/routes.dart';
 
 
 // build appbar
@@ -14,7 +15,7 @@ AppBar commonAppbar(BuildContext context, String title) {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Text(title),
-        functionalIcon(Icons.person_pin, (){ print("Login Placeholder"); }),
+        functionalIcon(Icons.person_pin, (){ Navigator.pushNamed(context, loginRoute); }),
       ],
     ),
   );

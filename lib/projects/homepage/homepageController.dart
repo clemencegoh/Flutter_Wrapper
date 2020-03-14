@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/constants/routes.dart';
 import 'package:flutter_app/projects/homepage/homepageService.dart' as hpService;
 import 'package:flutter_app/helpers/appbar.dart' as appbar;
 
@@ -53,7 +54,7 @@ class _HomePageState extends State<HomePage> {
             Text("Projects"),
             appbar.functionalIcon(
               Icons.person_pin,
-              (){ print("Login Placeholder"); }
+              (){ Navigator.pushNamed(context, loginRoute); }
             ),
           ],
         ),

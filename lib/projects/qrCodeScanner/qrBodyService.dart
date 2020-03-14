@@ -25,6 +25,7 @@ class QRService extends StatefulWidget {
 class QRServiceState extends State<QRService> {
   @override
   void initState() {
+    super.initState();
     this.recentVisits = QRScannerServiceState.recentVisits;
   }
 

@@ -177,12 +177,12 @@ class QRScannerServiceState extends State<QRScannerService> {
       setState(() {
         this.barcode = data;
       });
-    } on PlatformException catch (e){
+    } on PlatformException {
       // Catch this error for not found data
       setState(() {
         this.barcode = "Did not detect a valid barcode or QR code";
       });
-    } on NoSuchMethodError catch (e){
+    } on NoSuchMethodError {
       // Back button pressed, do nothing
       return;
     }
