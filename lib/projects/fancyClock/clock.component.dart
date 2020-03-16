@@ -49,8 +49,11 @@ class _ClockState extends State<ClockComponent> with SingleTickerProviderStateMi
       margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
       child: Stack(
         children: <Widget>[
-          genericLogo(),  
-          // animatedCircularProgress(),   
+          // Bottom
+          animatedCircularProgress(),
+          
+          genericLogo(),                      
+          // Top
         ]
       ),
     );
