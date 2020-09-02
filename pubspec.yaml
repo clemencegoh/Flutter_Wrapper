@@ -20,6 +20,8 @@ dependencies:
   flutter:
     sdk: flutter
   
+  flutter_hooks: ^0.13.2            # flutter hooks for development
+  
   flutter_launcher_icons: ^0.7.4    # launcher icon
   
   http: ^0.12.0+2                   # http package

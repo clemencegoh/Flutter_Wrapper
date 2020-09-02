@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
 
     // Note that setState() when called will rebuild
     return MaterialApp(
-      title: "Clemence's App",
+      title: "E App",
       home: new Scaffold(
         appBar: wrapperAppBar(context),
         body: wrapperBody(),

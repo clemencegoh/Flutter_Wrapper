@@ -95,11 +95,23 @@ class QRServiceState extends State<QRService> {
       );
     }
 
-    return Container(
-      child: SingleChildScrollView(
-        child: Column(
-          children: items,
+    return Scaffold( 
+      body: Container(
+        child: SingleChildScrollView(
+          child: Column(
+            children: items,
+          ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          // remove all
+          setState(() {
+            _setRecentToPrefs([]); 
+          });
+        },
+        child: Icon(Icons.delete_forever),
+        backgroundColor: Colors.pinkAccent,
       ),
     );
   }

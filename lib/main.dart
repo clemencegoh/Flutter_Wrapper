@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/constants/routes.dart';
+import 'package:flutter_app/projects/experimental/experimentalScreen.dart';
 import 'package:flutter_app/projects/homepage/homepageController.dart';
 import 'package:flutter_app/projects/loginPage/loginScreen.dart';
 import 'package:flutter_app/projects/lunchPredictor/lunchPredictorController.dart';
@@ -15,6 +16,7 @@ void main() {
         lunchPredictionRoute: (context) => new LunchPredictorMain(),
         qrScannerRoute: (context) => new QrCodeScannerController(),
         loginRoute: (context) => new LoginScreen(),
+        experimentsRoute: (context) => new ExperimentsScreen(),
       },
       debugShowCheckedModeBanner: false,
     )

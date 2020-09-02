@@ -9,7 +9,7 @@
 :: flutter create .
 
 :: Run on Chrome, "R" to hot reload
-flutter run -d chrome
+flutter run -d web-server --web-port=9000
 
 :: Build app for web
 :: flutter build web
